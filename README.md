@@ -43,4 +43,6 @@ remove
 
 ```
 # npm install -save-dev vue@next
+# npm install
+# npm run dev
 ```
