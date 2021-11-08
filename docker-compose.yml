@@ -7,7 +7,7 @@ services:
     ports:
       - 8081:8081
       - 3000:3000
-  vuesplash_database:
+  db:
     image: postgres:11-alpine
     restart: always
     environment:
