@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class LoginApiTest extends TestCase
+class LoginControllerTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -21,7 +21,7 @@ class LoginApiTest extends TestCase
     }
 
     /**
-     * A basic feature test example.
+     * Login test.
      *
      * @return void
      */
@@ -37,5 +37,19 @@ class LoginApiTest extends TestCase
             ->assertJson(['name' => $this->user->name]);
 
         $this->assertAuthenticatedAs($this->user);
+    }
+
+    /**
+     * Logout test.
+     *
+     * @return void
+     */
+    public function test_認証済みのユーザーをログアウトさせる()
+    {
+        $response = $this->actingAs($this->user)
+            ->json('POST', route('logout'));
+
+        $response->assertStatus(200);
+        $this->assertGuest();
     }
 }
