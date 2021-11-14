@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PhotoList from '../pages/PhotoList';
-import Login from '../pages/Login';
+import UserLogin from '../pages/UserLogin';
 
 const routes = [
   {
@@ -9,7 +9,7 @@ const routes = [
   },
   {
     path: '/login',
-    component: Login,
+    component: UserLogin,
   },
 ];
 
