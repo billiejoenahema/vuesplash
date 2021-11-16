@@ -90,9 +90,12 @@
 
 <script>
 import { reactive, ref } from 'vue';
+// import { useStore } from 'vuex';
 
 export default {
   setup() {
+    // const store = useStore();
+
     const tab = ref('login');
     const changeTab = (tabName) => {
       tab.value = tabName;
