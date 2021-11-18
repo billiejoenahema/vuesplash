@@ -89,12 +89,18 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
-// import { useStore } from 'vuex';
+import { computed, reactive, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
-    // const store = useStore();
+    const store = useStore();
+    const router = useRouter();
+
+    const hasErrors = computed(
+      () => store.getters['auth/hasErrors']
+    );
 
     const tab = ref('login');
     const changeTab = (tabName) => {
@@ -116,8 +122,11 @@ export default {
     const login = () => {
       console.log(loginForm);
     };
-    const register = () => {
-      console.log(registerForm);
+    const register = async () => {
+      await store.dispatch('auth/register', registerForm);
+      if (!hasErrors.length) {
+        router.push('/');
+      }
     };
 
     return {
