@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 const state = {
-  user: '',
-  errors: null,
+  user: {},
+  errors: [],
 };
 
 const getters = {
   hasErrors(state) {
-    return state.errors ?? [];
+    return state?.errors.length ?? 0;
   },
 };
 
@@ -15,11 +15,19 @@ const actions = {
     await axios
       .post('/api/register', data)
       .then((res) => {
-        console.log(res.status);
-        commit('setUser', res.data);
+        commit('setUser', res.config.data);
       })
       .catch((err) => {
-        console.error(err);
+        commit('setError', err);
+      });
+  },
+  async login({ commit }, data) {
+    await axios
+      .post('/api/login', data)
+      .then((res) => {
+        commit('setUser', res.config.data);
+      })
+      .catch((err) => {
         commit('setError', err);
       });
   },
@@ -30,7 +38,7 @@ const mutations = {
     state.user = user;
   },
   setError(state, error) {
-    state.user = error;
+    state.errors = [...state.errors, error];
   },
 };
 

@@ -19546,9 +19546,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   setup: function setup() {
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
-      return store.getters['auth/hasErrors'];
-    });
     var tab = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('login');
 
     var changeTab = function changeTab(tabName) {
@@ -19565,26 +19562,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       password: '',
       password_confirmation: ''
     });
+    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['auth/hasErrors'];
+    });
 
-    var login = function login() {
-      console.log(loginForm);
-    };
-
-    var register = /*#__PURE__*/function () {
+    var login = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return store.dispatch('auth/register', registerForm);
+                return store.dispatch('auth/login', loginForm);
 
               case 2:
-                if (!hasErrors.length) {
-                  router.push('/');
+                if (hasErrors.value) {
+                  _context.next = 5;
+                  break;
                 }
 
-              case 3:
+                _context.next = 5;
+                return router.push('/');
+
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -19592,8 +19592,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }));
 
-      return function register() {
+      return function login() {
         return _ref.apply(this, arguments);
+      };
+    }();
+
+    var register = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return store.dispatch('auth/register', registerForm);
+
+              case 2:
+                if (hasErrors.value) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                _context2.next = 5;
+                return router.push('/');
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function register() {
+        return _ref2.apply(this, arguments);
       };
     }();
 
@@ -20038,6 +20069,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -20046,14 +20089,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* eslint-disable no-undef */
 var state = {
-  user: '',
-  errors: null
+  user: {},
+  errors: []
 };
 var getters = {
   hasErrors: function hasErrors(state) {
-    var _state$errors;
+    var _state$errors$length;
 
-    return (_state$errors = state.errors) !== null && _state$errors !== void 0 ? _state$errors : [];
+    return (_state$errors$length = state === null || state === void 0 ? void 0 : state.errors.length) !== null && _state$errors$length !== void 0 ? _state$errors$length : 0;
   }
 };
 var actions = {
@@ -20067,10 +20110,8 @@ var actions = {
               commit = _ref.commit;
               _context.next = 3;
               return axios.post('/api/register', data).then(function (res) {
-                console.log(res.status);
-                commit('setUser', res.data);
+                commit('setUser', res.config.data);
               })["catch"](function (err) {
-                console.error(err);
                 commit('setError', err);
               });
 
@@ -20081,6 +20122,29 @@ var actions = {
         }
       }, _callee);
     }))();
+  },
+  login: function login(_ref2, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return axios.post('/api/login', data).then(function (res) {
+                commit('setUser', res.config.data);
+              })["catch"](function (err) {
+                commit('setError', err);
+              });
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 };
 var mutations = {
@@ -20088,7 +20152,7 @@ var mutations = {
     state.user = user;
   },
   setError: function setError(state, error) {
-    state.user = error;
+    state.errors = [].concat(_toConsumableArray(state.errors), [error]);
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({

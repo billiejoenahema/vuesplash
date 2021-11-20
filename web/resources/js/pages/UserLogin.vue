@@ -98,10 +98,6 @@ export default {
     const store = useStore();
     const router = useRouter();
 
-    const hasErrors = computed(
-      () => store.getters['auth/hasErrors']
-    );
-
     const tab = ref('login');
     const changeTab = (tabName) => {
       tab.value = tabName;
@@ -119,13 +115,20 @@ export default {
       password_confirmation: '',
     });
 
-    const login = () => {
-      console.log(loginForm);
+    const hasErrors = computed(
+      () => store.getters['auth/hasErrors']
+    );
+
+    const login = async () => {
+      await store.dispatch('auth/login', loginForm);
+      if (!hasErrors.value) {
+        await router.push('/');
+      }
     };
     const register = async () => {
       await store.dispatch('auth/register', registerForm);
-      if (!hasErrors.length) {
-        router.push('/');
+      if (!hasErrors.value) {
+        await router.push('/');
       }
     };
 
