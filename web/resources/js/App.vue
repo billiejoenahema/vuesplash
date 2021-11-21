@@ -1,25 +1,25 @@
 <template>
   <div>
     <header>
-      <BaseNavbar />
+      <Navbar />
     </header>
     <main>
       <div class="container">
         <RouterView />
       </div>
     </main>
-    <BaseFooter />
+    <Footer />
   </div>
 </template>
 
 <script>
-import BaseNavbar from './components/BaseNavbar.vue';
-import BaseFooter from './components/BaseFooter.vue';
+import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   components: {
-    BaseNavbar,
-    BaseFooter,
+    Navbar,
+    Footer,
   },
 };
 </script>
