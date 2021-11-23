@@ -127,9 +127,7 @@ export default {
     };
     const register = async () => {
       await store.dispatch('auth/register', registerForm);
-      if (!hasErrors.value) {
-        await router.push('/');
-      }
+      await await router.push('/');
     };
 
     return {

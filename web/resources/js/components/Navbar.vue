@@ -29,8 +29,10 @@ import { useStore } from 'vuex';
 export default {
   setup() {
     const store = useStore();
+
+    store.dispatch('auth/loginUser');
     const isLogin = computed(
-      () => store.getters['auth/check']
+      () => store.getters['auth/isLogin']
     );
     const userName = store.getters['auth/userName'];
 

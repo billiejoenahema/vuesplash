@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -27,8 +27,11 @@ export default {
     const store = useStore();
     const router = useRouter();
 
+    onMounted(() => {
+      store.dispatch('auth/loginUser');
+    });
     const isLogin = computed(
-      () => store.getters['auth/check']
+      () => store.getters['auth/isLogin']
     );
     const logout = async () => {
       await store.dispatch('auth/logout');

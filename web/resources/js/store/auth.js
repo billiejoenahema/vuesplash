@@ -1,12 +1,22 @@
 /* eslint-disable no-undef */
 const state = {
   user: {},
+  login_user: {},
   errors: [],
 };
 
 const getters = {
   hasErrors(state) {
     return state?.errors.length ?? 0;
+  },
+  isLogin(state) {
+    if (state.user) {
+      return Object.keys(state.user).length !== 0;
+    }
+    return false;
+  },
+  userName(state) {
+    return state.user?.name ?? '';
   },
 };
 
@@ -15,9 +25,10 @@ const actions = {
     await axios
       .post('/api/register', data)
       .then((res) => {
-        commit('setUser', res.config.data);
+        console.log(res.status);
       })
       .catch((err) => {
+        state.errors;
         commit('setError', err);
       });
   },
@@ -25,20 +36,34 @@ const actions = {
     await axios
       .post('/api/login', data)
       .then((res) => {
-        commit('setUser', res.config.data);
+        console.log(res.status);
+        commit('setUser', res.data);
+        commit('reSetError', []);
       })
       .catch((err) => {
         commit('setError', err);
       });
   },
+  async logout({ commit }) {
+    await axios.post('/api/logout');
+    commit('setUser', {});
+  },
+  async loginUser({ commit }) {
+    await axios.get('api/login_user').then((res) => {
+      commit('setUser', res.data.login_user);
+    });
+  },
 };
 
 const mutations = {
-  setUser(state, user) {
-    state.user = user;
+  setUser(state, login_user) {
+    state.user = login_user;
   },
   setError(state, error) {
-    state.errors = [...state.errors, error];
+    state.errors = [error];
+  },
+  reSetError(state, defaultError) {
+    state.errors = defaultError;
   },
 };
 
