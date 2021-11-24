@@ -19609,7 +19609,9 @@ __webpack_require__.r(__webpack_exports__);
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
     });
-    var userName = store.getters['auth/userName'];
+    var userName = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['auth/userName'];
+    });
     return {
       isLogin: isLogin,
       userName: userName

@@ -34,7 +34,9 @@ export default {
     const isLogin = computed(
       () => store.getters['auth/isLogin']
     );
-    const userName = store.getters['auth/userName'];
+    const userName = computed(
+      () => store.getters['auth/userName']
+    );
 
     return {
       isLogin,
