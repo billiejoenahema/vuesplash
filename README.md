@@ -1,14 +1,17 @@
 # Vuesplash
 
 ## front
-- Vue 3
+
+- Vue 3.2
 - Vue-router
 - Vuex
 
 ## backend
+
 - Laravel 8
 
 ---
+
 ```
 $ docker-compose up -d --build
 $ docker-compose exec web bash

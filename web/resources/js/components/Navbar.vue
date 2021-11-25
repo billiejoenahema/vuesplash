@@ -1,3 +1,18 @@
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+store.dispatch('auth/loginUser');
+const isLogin = computed(
+  () => store.getters['auth/isLogin']
+);
+const userName = computed(
+  () => store.getters['auth/userName']
+);
+</script>
+
 <template>
   <nav class="navbar">
     <RouterLink class="navbar__brand" to="/">
@@ -21,27 +36,3 @@
     </div>
   </nav>
 </template>
-
-<script>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-
-export default {
-  setup() {
-    const store = useStore();
-
-    store.dispatch('auth/loginUser');
-    const isLogin = computed(
-      () => store.getters['auth/isLogin']
-    );
-    const userName = computed(
-      () => store.getters['auth/userName']
-    );
-
-    return {
-      isLogin,
-      userName,
-    };
-  },
-};
-</script>

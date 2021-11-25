@@ -1,3 +1,44 @@
+<script setup>
+import { computed, reactive, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
+const store = useStore();
+const router = useRouter();
+
+const tab = ref('login');
+const changeTab = (tabName) => {
+  tab.value = tabName;
+};
+
+const loginForm = reactive({
+  email: '',
+  password: '',
+});
+
+const registerForm = reactive({
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+});
+
+const hasErrors = computed(
+  () => store.getters['auth/hasErrors']
+);
+
+const login = async () => {
+  await store.dispatch('auth/login', loginForm);
+  if (!hasErrors.value) {
+    await router.push('/');
+  }
+};
+const register = async () => {
+  await store.dispatch('auth/register', registerForm);
+  await await router.push('/');
+};
+</script>
+
 <template>
   <div class="container--small">
     <ul class="tab">
@@ -87,57 +128,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import { computed, reactive, ref } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-
-export default {
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-
-    const tab = ref('login');
-    const changeTab = (tabName) => {
-      tab.value = tabName;
-    };
-
-    const loginForm = reactive({
-      email: '',
-      password: '',
-    });
-
-    const registerForm = reactive({
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-    });
-
-    const hasErrors = computed(
-      () => store.getters['auth/hasErrors']
-    );
-
-    const login = async () => {
-      await store.dispatch('auth/login', loginForm);
-      if (!hasErrors.value) {
-        await router.push('/');
-      }
-    };
-    const register = async () => {
-      await store.dispatch('auth/register', registerForm);
-      await await router.push('/');
-    };
-
-    return {
-      changeTab,
-      login,
-      loginForm,
-      register,
-      registerForm,
-      tab,
-    };
-  },
-};
-</script>
