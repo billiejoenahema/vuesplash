@@ -27,6 +27,8 @@ const hasErrors = computed(
   () => store.getters['auth/hasErrors']
 );
 
+const errors = computed(() => store.getters['auth/errors']);
+
 const login = async () => {
   await store.dispatch('auth/login', loginForm);
   if (!hasErrors.value) {
@@ -74,6 +76,9 @@ const register = async () => {
           v-model="loginForm.password"
         />
         <div class="form__button">
+          <div class="errors" v-show="errors.length">
+            {{ errors[0] }}
+          </div>
           <button
             type="submit"
             class="button button--inverse"
