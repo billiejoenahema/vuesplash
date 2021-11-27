@@ -6,9 +6,6 @@ const state = {
 };
 
 const getters = {
-  hasErrors(state) {
-    return state?.errors.length ?? 0;
-  },
   isLogin(state) {
     if (state.user) {
       return Object.keys(state.user).length !== 0;
@@ -17,6 +14,12 @@ const getters = {
   },
   userName(state) {
     return state.user?.name ?? '';
+  },
+  errors(state) {
+    return state?.errors ?? [];
+  },
+  hasErrors(state) {
+    return state?.errors.length ?? 0;
   },
 };
 
