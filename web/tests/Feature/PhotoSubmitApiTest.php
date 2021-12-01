@@ -37,13 +37,10 @@ class PhotoSubmitApiTest extends TestCase
                 // ダミーファイルを作成して送信している
                 'photo' => UploadedFile::fake()->image('photo.jpg'),
             ]);
-        dd($response);
         // レスポンスが201(CREATED)であること
         $response->assertStatus(201);
-
         $photo = Photo::first();
-
-        Storage::cloud()->assertExists($photo->filename);
+        Storage::disk('s3')->assertExists('/', $photo->filename);
     }
 
     /**
