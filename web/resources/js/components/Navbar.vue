@@ -1,6 +1,7 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import PhotoForm from './PhotoForm.vue';
 
 const store = useStore();
 
@@ -11,6 +12,8 @@ const isLogin = computed(
 const userName = computed(
   () => store.getters['auth/userName']
 );
+
+const showForm = ref(false);
 </script>
 
 <template>
@@ -20,7 +23,10 @@ const userName = computed(
     </RouterLink>
     <div class="navbar__menu">
       <div v-if="isLogin" class="navbar__item">
-        <button class="button">
+        <button
+          class="button"
+          @click="showForm = !showForm"
+        >
           <i class="icon ion-md-add"></i>
           Submit a photo
         </button>
@@ -34,5 +40,6 @@ const userName = computed(
         </RouterLink>
       </div>
     </div>
+    <PhotoForm v-show="showForm" />
   </nav>
 </template>
