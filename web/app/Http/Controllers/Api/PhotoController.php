@@ -16,11 +16,11 @@ class PhotoController extends Controller
         if (is_null($imageFile)) return;
         $fileName = Storage::disk('s3')->put('/public', $imageFile);
 
-        Photo::create([
+        $photo = Photo::create([
             'user_id' => Auth::id(),
             'filename' => $fileName,
         ]);
 
-        return response($fileName, 201);
+        return response($photo, 201);
     }
 }
