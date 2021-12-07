@@ -19686,13 +19686,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    showForm: Boolean
-  },
+  emits: ['update'],
   setup: function setup(__props, _ref) {
-    var expose = _ref.expose;
+    var expose = _ref.expose,
+        emit = _ref.emit;
     expose();
-    var props = __props;
     var preview = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)(null);
     var photo = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)(null);
 
@@ -19734,7 +19732,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/photos', formData).then(function (res) {
                   console.log(res);
-                  props.showForm = false;
+                  emit('update:showForm', false);
                   _router__WEBPACK_IMPORTED_MODULE_3__["default"].push("/photos/".concat(res.data.id));
                 })["catch"](function (err) {
                   console.log(err);
@@ -19754,7 +19752,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }();
 
     var __returned__ = {
-      props: props,
+      emit: emit,
       preview: preview,
       photo: photo,
       onFileChange: onFileChange,
@@ -20072,11 +20070,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PhotoForm"], {
-    showForm: $setup.showForm
+  })]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PhotoForm"], {
+    showForm: $setup.showForm,
+    "onUpdate:showForm": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.showForm = $event;
+    })
   }, null, 8
   /* PROPS */
-  , ["showForm"])]);
+  , ["showForm"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.showForm]])]);
 }
 
 /***/ }),
@@ -20130,7 +20131,7 @@ var _hoisted_4 = {
 };
 var _hoisted_5 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     "class": "form",
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.uploadFile, ["prevent"])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -20152,9 +20153,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: $setup.uploadFile
   }, " submit ")])], 40
   /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_3)], 512
-  /* NEED_PATCH */
-  )), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $props.showForm]]);
+  , _hoisted_3)]);
 }
 
 /***/ }),

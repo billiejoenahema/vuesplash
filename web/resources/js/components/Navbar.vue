@@ -40,6 +40,9 @@ const showForm = ref(false);
         </RouterLink>
       </div>
     </div>
-    <PhotoForm :showForm="showForm" />
+    <PhotoForm
+      v-show="showForm"
+      v-model:showForm="showForm"
+    />
   </nav>
 </template>

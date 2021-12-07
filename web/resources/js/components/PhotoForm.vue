@@ -1,11 +1,9 @@
 <script setup>
 import axios from 'axios';
-import { defineProps, ref } from 'vue';
+import { defineEmits, ref } from 'vue';
 import router from '../router';
 
-const props = defineProps({
-  showForm: Boolean,
-});
+const emit = defineEmits(['update']);
 
 const preview = ref(null);
 const photo = ref(null);
@@ -39,7 +37,7 @@ const uploadFile = async () => {
     .post('/api/photos', formData)
     .then((res) => {
       console.log(res);
-      props.showForm = false;
+      emit('update:showForm', false);
       router.push(`/photos/${res.data.id}`);
     })
     .catch((err) => {
@@ -49,7 +47,7 @@ const uploadFile = async () => {
 </script>
 
 <template>
-  <div v-show="showForm" class="photo-form">
+  <div class="photo-form">
     <h2 class="title">Submit a photo</h2>
     <form class="form" @submit.prevent="uploadFile">
       <input
