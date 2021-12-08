@@ -19,7 +19,8 @@
       {
         "ignores": [
           "Navbar",
-          "Footer"
+          "Footer",
+          "Loader"
         ]
       }
     ]

@@ -2,11 +2,13 @@
 import axios from 'axios';
 import { defineEmits, ref } from 'vue';
 import router from '../router';
+import Loader from './Loader.vue';
 
 const emit = defineEmits(['update']);
 
 const preview = ref(null);
 const photo = ref(null);
+const loading = ref(false);
 
 const onFileChange = (event) => {
   if (event.target.files.length === 0) {
@@ -30,6 +32,7 @@ const resetPreview = () => {
 };
 
 const uploadFile = async () => {
+  loading.value = true;
   const formData = new FormData();
   formData.append('photo', photo.value);
   console.log(photo.value);
@@ -43,13 +46,21 @@ const uploadFile = async () => {
     .catch((err) => {
       console.log(err);
     });
+  loading.value = false;
 };
 </script>
 
 <template>
   <div class="photo-form">
     <h2 class="title">Submit a photo</h2>
-    <form class="form" @submit.prevent="uploadFile">
+    <div v-show="loading" class="panel">
+      <Loader>Sending your photo...</Loader>
+    </div>
+    <form
+      v-show="!loading"
+      class="form"
+      @submit.prevent="uploadFile"
+    >
       <input
         class="form__item"
         type="file"
