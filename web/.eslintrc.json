@@ -20,7 +20,8 @@
         "ignores": [
           "Navbar",
           "Footer",
-          "Loader"
+          "Loader",
+          "Toast"
         ]
       }
     ]

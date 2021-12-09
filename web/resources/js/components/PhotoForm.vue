@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { defineEmits, ref } from 'vue';
 import router from '../router';
+import { store } from '../store';
 import Loader from './Loader.vue';
 
 const emit = defineEmits(['update']);
@@ -29,19 +30,24 @@ const onFileChange = (event) => {
 
 const resetPreview = () => {
   preview.value = '';
+  photo.value = '';
 };
 
 const uploadFile = async () => {
   loading.value = true;
   const formData = new FormData();
   formData.append('photo', photo.value);
-  console.log(photo.value);
   await axios
     .post('/api/photos', formData)
     .then((res) => {
       console.log(res);
       emit('update:showForm', false);
+      resetPreview();
       router.push(`/photos/${res.data.id}`);
+      store.commit('toast/setContent', {
+        content: '写真が投稿されました！',
+        timeout: 6000,
+      });
     })
     .catch((err) => {
       console.log(err);
