@@ -23,15 +23,15 @@ class PhotoListApiTest extends TestCase
         $response = $photo->json('GET', route('photo.index'));
 
         // 生成した写真データを作成日降順で取得
-        $photos = Photo::with(['owner'])->orderBy('created_at', 'desc')->get();
+        $photos = Photo::with(['user'])->orderBy('created_at', 'desc')->get();
 
         // data項目の期待値
         $expected_data = $photos->map(function ($photo) {
             return [
                 'id' => $photo->id,
                 'url' => $photo->url,
-                'owner' => [
-                    'name' => $photo->owner->name,
+                'user' => [
+                    'name' => $photo->user->name,
                 ],
             ];
         })
