@@ -30,7 +30,7 @@ class PhotoSubmitApiTest extends TestCase
     {
         // S3ではなくテスト用のストレージを使用する
         // → storage/framework/testing
-        Storage::fake('s3');
+        Illuminate\Support\Facades\Storage::fake('s3');
 
         $response = $this->actingAs($this->user)
             ->json('POST', route('photo.create'), [
@@ -40,7 +40,7 @@ class PhotoSubmitApiTest extends TestCase
         // レスポンスが201(CREATED)であること
         $response->assertStatus(201);
         $photo = Photo::first();
-        Storage::disk('s3')->assertExists('/', $photo->filename);
+        Illuminate\Support\Facades\Storage::disk('s3')->assertExists('/', $photo->filename);
     }
 
     /**

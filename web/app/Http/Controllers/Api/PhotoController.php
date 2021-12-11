@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index']);
+    }
+
     public function create(PhotoStoreRequest $request)
     {
         $imageFile = $request->file('photo');
@@ -22,5 +27,13 @@ class PhotoController extends Controller
         ]);
 
         return response($photo, 201);
+    }
+
+    public function index()
+    {
+        $photos = Photo::with(['user'])
+            ->orderBy(Photo::CREATED_AT, 'desc')->paginate();
+
+        return $photos;
     }
 }

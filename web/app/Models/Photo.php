@@ -9,6 +9,16 @@ class Photo extends Model
 {
     use HasFactory;
 
+    /** JSONに含める属性 */
+    protected $appends = [
+        'url',
+    ];
+
+    /** JSONに含める属性 */
+    protected $visible = [
+        'id', 'owner', 'url',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,5 +35,14 @@ class Photo extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * アクセサ - url
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return Storage::disk('s3')->url($this->attributes['filename']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Photo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,14 +18,14 @@ class PhotoListApiTest extends TestCase
      */
     public function test_フォト一覧を取得する()
     {
+
         // 5つの写真データを生成する
         $photo = Photo::factory()->create();
 
-        $response = $photo->json('GET', route('photo.index'));
+        $response = $this->json('GET', route('photo.index'));
 
         // 生成した写真データを作成日降順で取得
-        $photos = Photo::with(['user'])->orderBy('created_at', 'desc')->get();
-
+        $photos = $photo->with(['user'])->orderBy('created_at', 'desc')->get();
         // data項目の期待値
         $expected_data = $photos->map(function ($photo) {
             return [
@@ -36,7 +37,6 @@ class PhotoListApiTest extends TestCase
             ];
         })
             ->all();
-
         $response->assertStatus(200)
             // レスポンスJSONのdata項目に含まれる要素が5つであること
             ->assertJsonCount(5, 'data')
