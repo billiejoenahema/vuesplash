@@ -1,0 +1,42 @@
+<script setup>
+import { defineProps } from 'vue';
+const props = defineProps({
+  item: Object,
+});
+</script>
+
+<template>
+  <div class="photo">
+    <figure class="photo__wrapper">
+      <img
+        class="photo__image"
+        :src="props.item.url"
+        :alt="`Photo by ${props.item.user.name}`"
+      />
+    </figure>
+    <RouterLink
+      class="photo__overlay"
+      :to="`/photos/${props.item.id}`"
+      :title="`View the photo by ${props.item.user.name}`"
+    >
+      <div class="photo__controls">
+        <button
+          class="photo__action photo__action--like"
+          title="Like photo"
+        >
+          <a
+            class="photo__action"
+            title="Download photo"
+            @click.stop
+            :href="`/photos/${props.item.id}/download`"
+          >
+            <i class="icon ion-md-heart"></i>12
+          </a>
+        </button>
+      </div>
+      <div class="photo__username">
+        {{ props.item.user.name }}
+      </div>
+    </RouterLink>
+  </div>
+</template>
