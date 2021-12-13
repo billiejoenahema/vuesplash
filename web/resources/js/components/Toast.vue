@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue';
-import { store } from '../store';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const toast = computed(() => store.getters.content);
 </script>

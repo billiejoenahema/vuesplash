@@ -18,9 +18,10 @@
       "error",
       {
         "ignores": [
-          "Navbar",
           "Footer",
           "Loader",
+          "Navbar",
+          "Photo",
           "Toast"
         ]
       }
