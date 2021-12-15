@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PhotoStoreRequest;
+use App\Http\Resources\PhotoResource;
 use App\Models\Photo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -31,9 +32,9 @@ class PhotoController extends Controller
 
     public function index()
     {
-        $photos = Photo::with(['user'])
-            ->orderBy(Photo::CREATED_AT, 'desc')->paginate();
+        $query = Photo::with(['user']);
+        $photos = $query->orderBy(Photo::CREATED_AT, 'desc')->paginate();
 
-        return $photos;
+        return PhotoResource::collection($photos);
     }
 }

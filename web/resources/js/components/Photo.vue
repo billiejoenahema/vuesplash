@@ -24,15 +24,16 @@ const props = defineProps({
           class="photo__action photo__action--like"
           title="Like photo"
         >
-          <a
-            class="photo__action"
-            title="Download photo"
-            @click.stop
-            :href="`/photos/${props.item.id}/download`"
-          >
-            <i class="icon ion-md-heart"></i>12
-          </a>
+          <i class="icon ion-md-heart"></i>12
         </button>
+        <a
+          class="photo__action"
+          title="Download photo"
+          @click.stop
+          :href="`/photos/${props.item.id}/download`"
+        >
+          <i class="icon ion-md-arrow-round-down"></i>
+        </a>
       </div>
       <div class="photo__username">
         {{ props.item.user.name }}

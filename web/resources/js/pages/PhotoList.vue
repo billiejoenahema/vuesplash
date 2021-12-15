@@ -9,9 +9,6 @@ store.dispatch('photo/getPhotos');
 const photos = computed(
   () => store.getters['photo/photos']
 );
-onMounted(() => {
-  console.log(photos.value);
-});
 </script>
 
 <template>

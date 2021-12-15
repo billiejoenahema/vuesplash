@@ -2,23 +2,25 @@ import axios from 'axios';
 
 const state = {
   errors: '',
+  data: '',
   photo: '',
   photos: '',
 };
 
 const getters = {
+  data: (state) => {
+    return state.data;
+  },
   photo: (state) => {
-    return state.content;
+    return state.data;
   },
   photos: (state) => {
-    return state.content;
+    return state.data?.data;
   },
 };
 
 const actions = {
   async post({ commit }, formData) {
-    console.log('formData');
-    console.log(formData);
     await axios
       .post('/api/photos', formData)
       .then((res) => {
@@ -38,11 +40,11 @@ const actions = {
         commit('setErrors', err);
       });
   },
-  async getPhotos({ commit }, param) {
+  async getPhotos({ commit }) {
     await axios
-      .get('/api/photos', param)
+      .get('/api/photos')
       .then((res) => {
-        commit('setPhotos', res.data);
+        commit('setData', res.data);
       })
       .catch((err) => {
         commit('setErrors', err);
@@ -53,6 +55,9 @@ const actions = {
 const mutations = {
   setErrors(state, err) {
     state.errors = err;
+  },
+  setData(state, data) {
+    state.data = data;
   },
   setPhoto(state, photo) {
     state.photo = photo;
