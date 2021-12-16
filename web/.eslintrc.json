@@ -21,6 +21,7 @@
           "Footer",
           "Loader",
           "Navbar",
+          "Pagination",
           "Photo",
           "Toast"
         ]

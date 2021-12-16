@@ -1,11 +1,26 @@
 <script setup>
-import { computed, onMounted } from 'vue';
-import Photo from '../components/Photo.vue';
+import { computed, defineProps, ref } from 'vue';
 import { useStore } from 'vuex';
+import Photo from '../components/Photo';
+import Pagination from '../components/Pagination';
 
 const store = useStore();
+const props = defineProps({
+  page: {
+    type: Number,
+    required: false,
+    default: 1,
+  },
+});
 
-store.dispatch('photo/getPhotos');
+const currentPage = computed(
+  () => store.getters['photo/currentPage']
+);
+const lastPage = computed(
+  () => store.getters['photo/lastPage']
+);
+
+store.dispatch('photo/getPhotos', props.page);
 const photos = computed(
   () => store.getters['photo/photos']
 );
@@ -21,5 +36,9 @@ const photos = computed(
         :item="photo"
       />
     </div>
+    <Pagination
+      :current-page="currentPage"
+      :last-page="lastPage"
+    />
   </div>
 </template>

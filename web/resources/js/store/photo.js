@@ -17,6 +17,12 @@ const getters = {
   photos: (state) => {
     return state.data?.data;
   },
+  currentPage: (state) => {
+    return state.data.meta?.current_page;
+  },
+  lastPage: (state) => {
+    return state.data.meta?.last_page;
+  },
 };
 
 const actions = {
@@ -40,9 +46,9 @@ const actions = {
         commit('setErrors', err);
       });
   },
-  async getPhotos({ commit }) {
+  async getPhotos({ commit }, page) {
     await axios
-      .get('/api/photos')
+      .get(`/api/photos/?page=${page}`)
       .then((res) => {
         commit('setData', res.data);
       })
