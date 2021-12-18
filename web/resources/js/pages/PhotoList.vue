@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, ref } from 'vue';
+import { computed, defineProps, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import Photo from '../components/Photo';
 import Pagination from '../components/Pagination';
@@ -24,9 +24,14 @@ store.dispatch('photo/getPhotos', props.page);
 const photos = computed(
   () => store.getters['photo/photos']
 );
+
+watchEffect(() => {
+  store.dispatch('photo/getPhotos', props.page);
+});
 </script>
 
 <template>
+  <div>{{ props.page }}</div>
   <div class="photo-list">
     <div class="grid">
       <Photo

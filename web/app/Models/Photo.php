@@ -10,6 +10,8 @@ class Photo extends Model
 {
     use HasFactory;
 
+    protected $perPage = 6;
+
     /** JSONに含める属性 */
     protected $appends = [
         'url',
