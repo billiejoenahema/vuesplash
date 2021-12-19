@@ -13,9 +13,41 @@ class PhotoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->middleware('auth')->except(['index', 'download', 'show']);
     }
 
+
+    /**
+     * フォト一覧を取得する
+     *
+     * @return Photo
+     */
+    public function index()
+    {
+        $query = Photo::with(['user']);
+        $photos = $query->orderBy(Photo::CREATED_AT, 'desc')->paginate();
+
+        return PhotoResource::collection($photos);
+    }
+
+
+    /**
+     * フォト詳細を取得する
+     *
+     * @return Photo
+     */
+    public function show(String $id)
+    {
+        $photo = Photo::where('id', $id)->with(['user'])->first();
+
+        return $photo ?? abort(404);
+    }
+
+    /**
+     * フォトを投稿する
+     *
+     * @return Photo
+     */
     public function create(PhotoStoreRequest $request)
     {
         $imageFile = $request->file('photo');
@@ -28,13 +60,5 @@ class PhotoController extends Controller
         ]);
 
         return response($photo, 201);
-    }
-
-    public function index()
-    {
-        $query = Photo::with(['user']);
-        $photos = $query->orderBy(Photo::CREATED_AT, 'desc')->paginate();
-
-        return PhotoResource::collection($photos);
     }
 }

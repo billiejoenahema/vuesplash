@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/login_user', LoginUserController::class)->name('login_user');
     // フォト
     Route::get('/photos', [PhotoController::class, 'index'])->name('photo.index');
+    Route::get('/photos/{id}', [PhotoController::class, 'show'])->name('photo.show');
     Route::post('/photos', [PhotoController::class, 'create'])->name('photo.create');
 });
 
