@@ -39,7 +39,6 @@ class PhotoController extends Controller
     public function show(String $id)
     {
         $photo = Photo::where('id', $id)->with(['user'])->first();
-
         return $photo ?? abort(404);
     }
 

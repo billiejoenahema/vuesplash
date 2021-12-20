@@ -12,7 +12,7 @@ const getters = {
     return state.data;
   },
   photo: (state) => {
-    return state.data;
+    return state.photo;
   },
   photos: (state) => {
     return state.data?.data;
@@ -40,7 +40,7 @@ const actions = {
     await axios
       .get(`/api/photos/${id}`)
       .then((res) => {
-        commit('setPhotos', res.data);
+        commit('setPhoto', res.data);
       })
       .catch((err) => {
         commit('setErrors', err);
