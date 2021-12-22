@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Comment;
 use App\Models\Photo;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -17,8 +18,10 @@ class PhotoDetailApiTest extends TestCase
      */
     public function test_正しい構造のJSONを返却する()
     {
-        Photo::factory()->create();
-        $photo = Photo::first();
+        Photo::factory()->create()->each(function ($photo) {
+            $photo->comments()->saveMany(Comment::factory, 3);
+        });
+        $photo = Photo::firstOrFail();
 
         $response = $this->json('GET', route('photo.show', [
             'id' => $photo->id,
@@ -31,6 +34,17 @@ class PhotoDetailApiTest extends TestCase
                 'user' => [
                     'name' => $photo->user->name,
                 ],
+                'comments' => $photo->comments
+                    ->sortByDesc('id')
+                    ->map(function ($comment) {
+                        return [
+                            'author' => [
+                                'name' => $comment->author->name,
+                            ],
+                            'content' => $comment->content,
+                        ];
+                    })
+                    ->all(),
             ]);
     }
 }
