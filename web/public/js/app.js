@@ -19997,13 +19997,43 @@ __webpack_require__.r(__webpack_exports__);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect)(function () {
       store.dispatch('photo/getPhotos', props.page);
     });
+    var dateList = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)([{
+      date: '1月1日'
+    }, {
+      date: '1月2日'
+    }, {
+      date: '1月2日'
+    }, {
+      date: '1月3日'
+    }, {
+      date: '1月3日'
+    }, {
+      date: '1月4日'
+    }]);
+    var current = {
+      date: ''
+    }; // メッセージの日付表示を制御
+
+    var showDate = function showDate(date) {
+      if (current.date !== date) {
+        current.date = date;
+        return true;
+      } else {
+        return false;
+      }
+    };
+
     var __returned__ = {
       store: store,
       props: props,
       currentPage: currentPage,
       lastPage: lastPage,
       photos: photos,
+      dateList: dateList,
+      current: current,
+      showDate: showDate,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
+      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       watchEffect: vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
       Photo: _components_Photo__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -20670,14 +20700,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" // メッセージの日付 ");
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "message body", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = {
   "class": "photo-list"
 };
-var _hoisted_2 = {
+var _hoisted_4 = {
   "class": "grid"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photos, function (photo) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.dateList, function (message, index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: index
+    }, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.date), 513
+    /* TEXT, NEED_PATCH */
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.showDate(message.date)]]), _hoisted_2]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photos, function (photo) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Photo"], {
       "class": "grid__item",
       key: photo.id,
@@ -20692,7 +20737,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "last-page": $setup.lastPage
   }, null, 8
   /* PROPS */
-  , ["current-page", "last-page"])]);
+  , ["current-page", "last-page"])])], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),
