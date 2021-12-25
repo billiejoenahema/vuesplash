@@ -56,6 +56,16 @@ const actions = {
         commit('setErrors', err);
       });
   },
+  async postComment({ commit }, photoId) {
+    await axios
+      .post(`/api/comments/${photoId}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        commit('setErrors', err);
+      });
+  },
 };
 
 const mutations = {

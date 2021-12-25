@@ -31,8 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/photos', [PhotoController::class, 'create'])->name('photo.create');
     // コメント
     Route::post('/comments', [CommentController::class, 'create'])->name('comment.create');
+    Route::post('/comments/{id}', [CommentController::class, 'create'])->name('comment.create');
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

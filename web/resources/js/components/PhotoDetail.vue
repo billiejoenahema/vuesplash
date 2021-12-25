@@ -10,9 +10,20 @@ const props = defineProps({
   },
 });
 
+store.dispatch('auth/loginUser');
+const isLogin = computed(
+  () => store.getters['auth/isLogin']
+);
+
 store.dispatch('photo/getPhoto', props.id);
 const photo = computed(() => store.getters['photo/photo']);
 const fullWidth = ref(false);
+const newComment = ref('');
+const postComment = async (id) => {
+  await store.dispatch('photo/postComment', id);
+  newComment.value = '';
+  store.dispatch('photo/getPhoto', props.id);
+};
 </script>
 
 <template>
@@ -47,6 +58,43 @@ const fullWidth = ref(false);
       <h2 class="photo-detail__title">
         <i class="icon ion-md-chatboxes"></i>Comments
       </h2>
+      <ul
+        v-if="photo.comments.length > 0"
+        class="photo-detail__comments"
+      >
+        <li
+          v-for="comment in photo.comments"
+          :key="comment.id"
+          class="photo-detail__commentItem"
+        >
+          <p class="photo-detail__commentBody">
+            {{ comment.content }}
+          </p>
+          <p class="photo-detail__commentInfo">
+            {{ comment.user.name }}
+          </p>
+        </li>
+      </ul>
+      <p v-else>No comments yet.</p>
+      <form
+        @submit.prevent="postComment"
+        v-show="isLogin"
+        class="form"
+      >
+        <textarea
+          class="form__item"
+          v-model="newComment"
+        ></textarea>
+        <div class="form__button">
+          <button
+            type="submit"
+            class="button button--inverse"
+            :disabled="!newComment"
+          >
+            submit comment
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
