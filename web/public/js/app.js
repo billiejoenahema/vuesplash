@@ -21210,13 +21210,12 @@ var actions = {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
-              console.log('loginuser!');
-              _context4.next = 4;
-              return axios.get('api/login_user').then(function (res) {
+              _context4.next = 3;
+              return axios.get('/api/login_user').then(function (res) {
                 commit('setUser', res.data.login_user);
               });
 
-            case 4:
+            case 3:
             case "end":
               return _context4.stop();
           }

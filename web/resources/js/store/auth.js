@@ -52,8 +52,7 @@ const actions = {
     commit('setUser', {});
   },
   async loginUser({ commit }) {
-    console.log('loginuser!');
-    await axios.get('api/login_user').then((res) => {
+    await axios.get('/api/login_user').then((res) => {
       commit('setUser', res.data.login_user);
     });
   },
