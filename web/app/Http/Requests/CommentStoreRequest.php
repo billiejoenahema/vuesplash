@@ -24,8 +24,6 @@ class CommentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
-            'photo_id' => ['required', 'exists:photos,id'],
             'content' => ['required', 'string', 'max:500'],
         ];
     }
