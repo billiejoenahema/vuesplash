@@ -19,8 +19,11 @@ store.dispatch('photo/getPhoto', props.id);
 const photo = computed(() => store.getters['photo/photo']);
 const fullWidth = ref(false);
 const newComment = ref('');
-const postComment = async (id) => {
-  await store.dispatch('photo/postComment', id);
+const postComment = async () => {
+  await store.dispatch('photo/postComment', {
+    photoId: props.id,
+    content: newComment.value,
+  });
   newComment.value = '';
   store.dispatch('photo/getPhoto', props.id);
 };

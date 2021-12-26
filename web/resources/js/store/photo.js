@@ -56,9 +56,11 @@ const actions = {
         commit('setErrors', err);
       });
   },
-  async postComment({ commit }, photoId) {
+  async postComment({ commit }, { photoId, content }) {
     await axios
-      .post(`/api/comments/${photoId}`)
+      .post(`/api/comments/${photoId}`, {
+        content: content,
+      })
       .then((res) => {
         console.log(res);
       })

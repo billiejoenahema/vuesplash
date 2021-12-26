@@ -19785,13 +19785,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var newComment = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
 
     var postComment = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(id) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return store.dispatch('photo/postComment', id);
+                return store.dispatch('photo/postComment', {
+                  photoId: props.id,
+                  content: newComment.value
+                });
 
               case 2:
                 newComment.value = '';
@@ -19805,7 +19808,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }));
 
-      return function postComment(_x) {
+      return function postComment() {
         return _ref2.apply(this, arguments);
       };
     }();
@@ -21425,22 +21428,25 @@ var actions = {
       }, _callee3);
     }))();
   },
-  postComment: function postComment(_ref4, photoId) {
+  postComment: function postComment(_ref4, _ref5) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      var commit;
+      var commit, photoId, content;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
-              _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/comments/".concat(photoId)).then(function (res) {
+              photoId = _ref5.photoId, content = _ref5.content;
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/comments/".concat(photoId), {
+                content: content
+              }).then(function (res) {
                 console.log(res);
               })["catch"](function (err) {
                 commit('setErrors', err);
               });
 
-            case 3:
+            case 4:
             case "end":
               return _context4.stop();
           }

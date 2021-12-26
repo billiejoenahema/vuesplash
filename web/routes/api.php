@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Api\LoginUserController;
 use App\Http\Controllers\Api\PhotoController;
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
