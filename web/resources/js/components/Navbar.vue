@@ -9,6 +9,7 @@ store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
+
 const userName = computed(
   () => store.getters['auth/userName']
 );

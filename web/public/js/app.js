@@ -20010,9 +20010,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _components_Photo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Photo */ "./resources/js/components/Photo.vue");
-/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Pagination */ "./resources/js/components/Pagination.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../router */ "./resources/js/router/index.js");
+/* harmony import */ var _components_Photo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Photo */ "./resources/js/components/Photo.vue");
+/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Pagination */ "./resources/js/components/Pagination.vue");
+
 
 
 
@@ -20029,7 +20031,15 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
+    var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['auth/isLogin'];
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      if (!isLogin.value) {
+        _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/login');
+      }
+    });
     var currentPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/currentPage'];
     });
@@ -20046,14 +20056,17 @@ __webpack_require__.r(__webpack_exports__);
     var __returned__ = {
       store: store,
       props: props,
+      isLogin: isLogin,
       currentPage: currentPage,
       lastPage: lastPage,
       photos: photos,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       watchEffect: vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
-      Photo: _components_Photo__WEBPACK_IMPORTED_MODULE_1__["default"],
-      Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_2__["default"]
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
+      router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Photo: _components_Photo__WEBPACK_IMPORTED_MODULE_2__["default"],
+      Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
