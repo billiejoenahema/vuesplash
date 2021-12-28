@@ -11,7 +11,18 @@ class Comment extends Model
 
     /** JSONに含める属性 */
     protected $visible = [
-        'author', 'content',
+        'id', 'content', 'user',
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'content',
+        'user_id',
+        'photo_id',
     ];
 
     /**

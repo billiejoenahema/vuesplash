@@ -1,6 +1,7 @@
 <script setup>
-import { computed, defineProps, ref } from 'vue';
+import { computed, defineProps, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
+import router from '../router';
 
 const store = useStore();
 const props = defineProps({
@@ -14,6 +15,12 @@ store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
+
+onMounted(() => {
+  if (!isLogin.value) {
+    router.push('/login');
+  }
+});
 
 store.dispatch('photo/getPhoto', props.id);
 const photo = computed(() => store.getters['photo/photo']);

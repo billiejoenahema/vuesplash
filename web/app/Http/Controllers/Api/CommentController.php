@@ -15,12 +15,14 @@ class CommentController extends Controller
      * @param CommentStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Comment $comment, CommentStoreRequest $request)
+    public function create(Comment $comment, CommentStoreRequest $request, Int $id)
     {
-        $comment->content = $request['content'];
-        $comment->user_id = Auth::user()->id;
-        $comment->photo_id = $request['photo_id'];
+        $comment = Comment::create([
+            'content' => $request['content'],
+            'user_id' => Auth::user()->id,
+            'photo_id' => $id,
+        ]);
 
-        return response(201);
+        return response($comment);
     }
 }
