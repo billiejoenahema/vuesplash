@@ -30,15 +30,14 @@ class LikeApiTest extends TestCase
     public function test_フォトにいいねができる()
     {
         $response = $this->actingAs($this->user)
-            ->json('PUT', route('photo.like', [
+            ->json('PUT', route('like.like', [
                 'id' => $this->photo->id,
             ]));
-
         $response->assertStatus(200)
             ->assertJsonFragment([
                 'photo_id' => $this->photo->id,
             ]);
 
-        $this->assertEquals(1, $this->photo->likes()->count());
+        $this->assertEquals(1, $this->photo->likeUsers()->count());
     }
 }
