@@ -56,4 +56,12 @@ class Photo extends Model
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    /**
+     * フォトにいいねしているユーザーを取得。
+     */
+    public function likeUsers()
+    {
+        return $this->hasMany('App\Models\User', 'like', 'user_id', 'photo_id');
+    }
 }

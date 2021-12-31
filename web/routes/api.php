@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Api\LoginUserController;
 use App\Http\Controllers\Api\PhotoController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,10 @@ Route::group(['middleware' => ['auth']], function () {
     // コメント
     Route::post('/comments', [CommentController::class, 'create'])->name('comment.create');
     Route::post('/comments/{id}', [CommentController::class, 'create'])->name('comment.create');
+
+    // いいね
+    Route::put('/likes/{id}', [LikeController::class, 'like'])->name('like.like');
+    Route::delete('/likes/{id}', [LikeController::class, 'dislike'])->name('like.dislike');
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

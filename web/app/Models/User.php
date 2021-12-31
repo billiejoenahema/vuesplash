@@ -44,4 +44,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Photo');
     }
+
+    /**
+     * ユーザーがいいねしたフォトを取得。
+     */
+    public function likePhotos()
+    {
+        return $this->hasMany('App\Models\Photo', 'like', 'user_id', 'photo_id');
+    }
 }
