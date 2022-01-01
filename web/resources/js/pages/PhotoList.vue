@@ -1,12 +1,6 @@
 <script setup>
-import {
-  computed,
-  defineProps,
-  onMounted,
-  watchEffect,
-} from 'vue';
+import { computed, defineProps, watchEffect } from 'vue';
 import { useStore } from 'vuex';
-import router from '../router';
 import Photo from '../components/Photo';
 import Pagination from '../components/Pagination';
 
@@ -17,15 +11,6 @@ const props = defineProps({
     required: false,
     default: 1,
   },
-});
-
-const isLogin = computed(
-  () => store.getters['auth/isLogin']
-);
-onMounted(() => {
-  if (!isLogin.value) {
-    router.push('/login');
-  }
 });
 
 const currentPage = computed(
