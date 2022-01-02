@@ -13,6 +13,16 @@ const props = defineProps({
   },
 });
 
+store.dispatch('auth/loginUser');
+const isLogin = computed(
+  () => store.getters['auth/isLogin']
+);
+
+store.dispatch('photo/getPhotos', props.page);
+const photos = computed(
+  () => store.getters['photo/photos']
+);
+
 const currentPage = computed(
   () => store.getters['photo/currentPage']
 );
@@ -20,10 +30,16 @@ const lastPage = computed(
   () => store.getters['photo/lastPage']
 );
 
-store.dispatch('photo/getPhotos', props.page);
-const photos = computed(
-  () => store.getters['photo/photos']
-);
+const onLikeClick = ({ id, liked }) => {
+  if (!isLogin.value) {
+    alert('いいね機能を使うにはログインしてください。');
+  }
+  if (liked) {
+    store.dispatch('like.unlike', id);
+  } else {
+    store.dispatch('like.like', id);
+  }
+};
 
 watchEffect(() => {
   store.dispatch('photo/getPhotos', props.page);
@@ -38,6 +54,7 @@ watchEffect(() => {
         v-for="photo in photos"
         :key="photo.id"
         :item="photo"
+        @like="onLikeClick"
       />
     </div>
     <Pagination

@@ -1,8 +1,14 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineEmits, defineProps } from 'vue';
 const props = defineProps({
   item: Object,
 });
+
+const emit = defineEmits(['like']);
+
+const like = () => {
+  emit('like', props.item.id);
+};
 </script>
 
 <template>
@@ -21,10 +27,14 @@ const props = defineProps({
     >
       <div class="photo__controls">
         <button
-          class="photo__action photo__action--like"
+          :class="{
+            'photo__action--liked': item.liked_by_user,
+          }"
           title="Like photo"
+          @click.prevent="like"
         >
-          <i class="icon ion-md-heart"></i>12
+          <i class="icon ion-md-heart"></i
+          >{{ item.likes_count }}
         </button>
         <a
           class="photo__action"
