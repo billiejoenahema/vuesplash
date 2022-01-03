@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Photo extends Model
@@ -19,7 +20,7 @@ class Photo extends Model
 
     /** JSONに含める属性 */
     protected $visible = [
-        'id', 'user', 'url', 'comments',
+        'id', 'user', 'url', 'comments', 'like_users', 'liked_by_user'
     ];
 
     /**
@@ -54,7 +55,7 @@ class Photo extends Model
      */
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     /**
@@ -62,6 +63,21 @@ class Photo extends Model
      */
     public function likeUsers()
     {
-        return $this->hasMany('App\Models\User', 'like', 'user_id', 'photo_id');
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
+    /**
+     * アクセサ - url
+     * @return string
+     */
+    public function getLikedByUserAttribute()
+    {
+        if (Auth::guest()) {
+            return false;
+        }
+
+        return $this->likeUsers->contains(function ($user) {
+            return $user->id === Auth::user()->id;
+        });
     }
 }

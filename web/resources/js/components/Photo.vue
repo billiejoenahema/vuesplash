@@ -7,7 +7,10 @@ const props = defineProps({
 const emit = defineEmits(['like']);
 
 const like = () => {
-  emit('like', props.item.id);
+  emit('like', {
+    id: props.item.id,
+    liked: props.item.liked_by_user,
+  });
 };
 </script>
 
@@ -16,14 +19,14 @@ const like = () => {
     <figure class="photo__wrapper">
       <img
         class="photo__image"
-        :src="props.item.url"
-        :alt="`Photo by ${props.item.user.name}`"
+        :src="item.url"
+        :alt="`Photo by ${item.user.name}`"
       />
     </figure>
     <RouterLink
       class="photo__overlay"
       :to="`/photos/${props.item.id}`"
-      :title="`View the photo by ${props.item.user.name}`"
+      :title="`View the photo by ${item.user.name}`"
     >
       <div class="photo__controls">
         <button
@@ -34,7 +37,7 @@ const like = () => {
           @click.prevent="like"
         >
           <i class="icon ion-md-heart"></i
-          >{{ item.likes_count }}
+          >{{ item.likeUsers.length }}
         </button>
         <a
           class="photo__action"

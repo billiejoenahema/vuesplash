@@ -18,7 +18,9 @@ class PhotoResource extends JsonResource
             'id' => $this->id,
             'url' => $this->url,
             'user' => new UserResource($this->user),
-            'comments' => CommentResource::collection($this->comments)
+            'comments' => CommentResource::collection($this->comments),
+            'likeUsers' => $this->likeUsers,
+            'liked_by_user' => $this->likedByUser,
         ];
     }
 }

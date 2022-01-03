@@ -14,7 +14,7 @@ const getters = {
 const actions = {
   async put({ commit }, id) {
     await axios
-      .post(`/api/likes/${id}`)
+      .put(`/api/likes/${id}`)
       .then((res) => {
         commit('setLike', res.data);
       })

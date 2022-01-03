@@ -19729,7 +19729,10 @@ __webpack_require__.r(__webpack_exports__);
     var props = __props;
 
     var like = function like() {
-      emit('like', props.item.id);
+      emit('like', {
+        id: props.item.id,
+        liked: props.item.liked_by_user
+      });
     };
 
     var __returned__ = {
@@ -20060,12 +20063,13 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!isLogin.value) {
         alert('いいね機能を使うにはログインしてください。');
+        return;
       }
 
       if (liked) {
-        store.dispatch('like.unlike', id);
+        store.dispatch('like/delete', id);
       } else {
-        store.dispatch('like.like', id);
+        store.dispatch('like/put', id);
       }
     };
 
@@ -20528,14 +20532,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("figure", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "photo__image",
-    src: $setup.props.item.url,
-    alt: "Photo by ".concat($setup.props.item.user.name)
+    src: $props.item.url,
+    alt: "Photo by ".concat($props.item.user.name)
   }, null, 8
   /* PROPS */
   , _hoisted_3)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RouterLink, {
     "class": "photo__overlay",
     to: "/photos/".concat($setup.props.item.id),
-    title: "View the photo by ".concat($setup.props.item.user.name)
+    title: "View the photo by ".concat($props.item.user.name)
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -20544,7 +20548,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         title: "Like photo",
         onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.like, ["prevent"])
-      }, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.item.likes_count), 1
+      }, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.item.likeUsers.length), 1
       /* TEXT */
       )], 10
       /* CLASS, PROPS */
@@ -21326,23 +21330,123 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "store": () => (/* binding */ store)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "./resources/js/store/auth.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "./resources/js/store/error.js");
-/* harmony import */ var _photo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./photo */ "./resources/js/store/photo.js");
-/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toast */ "./resources/js/store/toast.js");
+/* harmony import */ var _like__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./like */ "./resources/js/store/like.js");
+/* harmony import */ var _photo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./photo */ "./resources/js/store/photo.js");
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toast */ "./resources/js/store/toast.js");
 
 
 
 
 
-var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.createStore)({
+
+var store = (0,vuex__WEBPACK_IMPORTED_MODULE_5__.createStore)({
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_0__["default"],
     error: _error__WEBPACK_IMPORTED_MODULE_1__["default"],
-    photo: _photo__WEBPACK_IMPORTED_MODULE_2__["default"],
-    toast: _toast__WEBPACK_IMPORTED_MODULE_3__["default"]
+    like: _like__WEBPACK_IMPORTED_MODULE_2__["default"],
+    photo: _photo__WEBPACK_IMPORTED_MODULE_3__["default"],
+    toast: _toast__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/like.js":
+/*!************************************!*\
+  !*** ./resources/js/store/like.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var state = {
+  errors: '',
+  like: ''
+};
+var getters = {
+  like: function like(state) {
+    return state.data;
+  }
+};
+var actions = {
+  put: function put(_ref, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().put("/api/likes/".concat(id)).then(function (res) {
+                commit('setLike', res.data);
+              })["catch"](function (err) {
+                commit('setErrors', err);
+              });
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  "delete": function _delete(_ref2, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/likes/".concat(id)).then(function (res) {
+                commit('setLike', res.data);
+              })["catch"](function (err) {
+                commit('setErrors', err);
+              });
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }
+};
+var mutations = {
+  setErrors: function setErrors(state, err) {
+    state.errors = err;
+  },
+  setLike: function setLike(state, data) {
+    state.like = data;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  actions: actions,
+  getters: getters,
+  mutations: mutations,
+  namespaced: true,
+  state: state
 });
 
 /***/ }),

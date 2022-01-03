@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
@@ -15,7 +16,7 @@ class LikeController extends Controller
      */
     public function like(string $id)
     {
-        $photo = Photo::with('likes')->findOrFail($id);
+        $photo = Photo::with('likeUsers')->findOrFail($id);
 
         if (!$photo) {
             abort(404);

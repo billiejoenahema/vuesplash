@@ -33,11 +33,12 @@ const lastPage = computed(
 const onLikeClick = ({ id, liked }) => {
   if (!isLogin.value) {
     alert('いいね機能を使うにはログインしてください。');
+    return;
   }
   if (liked) {
-    store.dispatch('like.unlike', id);
+    store.dispatch('like/delete', id);
   } else {
-    store.dispatch('like.like', id);
+    store.dispatch('like/put', id);
   }
 };
 
