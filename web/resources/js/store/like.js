@@ -9,6 +9,9 @@ const getters = {
   like: (state) => {
     return state.data;
   },
+  hasErrors: (state) => {
+    return state.errors.length;
+  },
 };
 
 const actions = {
@@ -24,7 +27,7 @@ const actions = {
   },
   async delete({ commit }, id) {
     await axios
-      .post(`/api/likes/${id}`)
+      .delete(`/api/likes/${id}`)
       .then((res) => {
         commit('setLike', res.data);
       })

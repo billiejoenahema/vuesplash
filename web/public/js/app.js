@@ -20056,6 +20056,9 @@ __webpack_require__.r(__webpack_exports__);
     var lastPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/lastPage'];
     });
+    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['like/hasErrors'];
+    });
 
     var onLikeClick = function onLikeClick(_ref2) {
       var id = _ref2.id,
@@ -20071,6 +20074,10 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         store.dispatch('like/put', id);
       }
+
+      if (!hasErrors.value) {
+        store.dispatch('photo/getPhotos', props.page);
+      }
     };
 
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect)(function () {
@@ -20083,6 +20090,7 @@ __webpack_require__.r(__webpack_exports__);
       photos: photos,
       currentPage: currentPage,
       lastPage: lastPage,
+      hasErrors: hasErrors,
       onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       watchEffect: vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect,
@@ -21383,6 +21391,9 @@ var state = {
 var getters = {
   like: function like(state) {
     return state.data;
+  },
+  hasErrors: function hasErrors(state) {
+    return state.errors.length;
   }
 };
 var actions = {
@@ -21418,7 +21429,7 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/likes/".concat(id)).then(function (res) {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/likes/".concat(id)).then(function (res) {
                 commit('setLike', res.data);
               })["catch"](function (err) {
                 commit('setErrors', err);

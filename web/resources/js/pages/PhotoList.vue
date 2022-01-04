@@ -29,6 +29,9 @@ const currentPage = computed(
 const lastPage = computed(
   () => store.getters['photo/lastPage']
 );
+const hasErrors = computed(
+  () => store.getters['like/hasErrors']
+);
 
 const onLikeClick = ({ id, liked }) => {
   if (!isLogin.value) {
@@ -39,6 +42,9 @@ const onLikeClick = ({ id, liked }) => {
     store.dispatch('like/delete', id);
   } else {
     store.dispatch('like/put', id);
+  }
+  if (!hasErrors.value) {
+    store.dispatch('photo/getPhotos', props.page);
   }
 };
 
