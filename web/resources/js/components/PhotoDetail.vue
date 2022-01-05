@@ -16,6 +16,9 @@ const isLogin = computed(
 );
 store.dispatch('photo/getPhoto', props.id);
 const photo = computed(() => store.getters['photo/photo']);
+const hasErrors = computed(
+  () => store.getters['like/hasErrors']
+);
 const fullWidth = ref(false);
 const newComment = ref('');
 const postComment = async () => {
@@ -25,6 +28,20 @@ const postComment = async () => {
   });
   newComment.value = '';
   store.dispatch('photo/getPhoto', props.id);
+};
+const onLikeClick = () => {
+  if (!isLogin.value) {
+    alert('いいね機能を使うにはログインしてください。');
+    return;
+  }
+  if (photo.value.liked_by_user) {
+    store.dispatch('like/delete', props.id);
+  } else {
+    store.dispatch('like/put', props.id);
+  }
+  if (!hasErrors.value) {
+    store.dispatch('photo/getPhoto', props.id);
+  }
 };
 </script>
 
@@ -45,10 +62,12 @@ const postComment = async () => {
     </figure>
     <div class="photo-detail__pane">
       <button
-        class="button button--like"
+        :class="{ 'button--liked': photo.liked_by_user }"
         title="Like photo"
+        @click="onLikeClick"
       >
-        <i class="icon ion-md-heart"></i>12
+        <i class="icon ion-md-heart"></i
+        >{{ photo.likeUsers.length }}
       </button>
       <a
         :href="`/photos/${photo.id}/download`"

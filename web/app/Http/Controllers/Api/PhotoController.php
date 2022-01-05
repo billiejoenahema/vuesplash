@@ -41,7 +41,7 @@ class PhotoController extends Controller
         $photo = Photo::where('id', $id)
             ->with(['user', 'comments', 'comments.user'])
             ->first();
-        return $photo ?? abort(404);
+        return new PhotoResource($photo) ?? abort(404);
     }
 
     /**

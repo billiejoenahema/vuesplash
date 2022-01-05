@@ -19793,6 +19793,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var photo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['photo/photo'];
     });
+    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['like/hasErrors'];
+    });
     var fullWidth = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
     var newComment = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
 
@@ -19825,14 +19828,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }();
 
+    var onLikeClick = function onLikeClick() {
+      if (!isLogin.value) {
+        alert('いいね機能を使うにはログインしてください。');
+        return;
+      }
+
+      if (photo.value.liked_by_user) {
+        store.dispatch('like/delete', props.id);
+      } else {
+        store.dispatch('like/put', props.id);
+      }
+
+      if (!hasErrors.value) {
+        store.dispatch('photo/getPhoto', props.id);
+      }
+    };
+
     var __returned__ = {
       store: store,
       props: props,
       isLogin: isLogin,
       photo: photo,
+      hasErrors: hasErrors,
       fullWidth: fullWidth,
       newComment: newComment,
       postComment: postComment,
+      onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore
@@ -20599,12 +20621,9 @@ var _hoisted_2 = {
   "class": "photo-detail__pane"
 };
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "button button--like",
-  title: "Like photo"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-heart"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("12 ")], -1
+}, null, -1
 /* HOISTED */
 );
 
@@ -20664,7 +20683,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("figcaption", null, " Posted by " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.user.name), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      'button--liked': $setup.photo.liked_by_user
+    }),
+    title: "Like photo",
+    onClick: $setup.onLikeClick
+  }, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.likeUsers.length), 1
+  /* TEXT */
+  )], 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "/photos/".concat($setup.photo.id, "/download"),
     "class": "button",
     title: "Download photo"
@@ -21547,7 +21576,7 @@ var actions = {
               commit = _ref2.commit;
               _context2.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/photos/".concat(id)).then(function (res) {
-                commit('setPhoto', res.data);
+                commit('setPhoto', res.data.data);
               })["catch"](function (err) {
                 commit('setErrors', err);
               });

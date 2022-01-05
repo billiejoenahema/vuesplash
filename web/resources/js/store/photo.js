@@ -40,7 +40,7 @@ const actions = {
     await axios
       .get(`/api/photos/${id}`)
       .then((res) => {
-        commit('setPhoto', res.data);
+        commit('setPhoto', res.data.data);
       })
       .catch((err) => {
         commit('setErrors', err);
