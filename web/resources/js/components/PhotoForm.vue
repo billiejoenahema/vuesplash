@@ -1,6 +1,6 @@
 <script setup>
 import { defineEmits, ref } from 'vue';
-import router from '../router';
+import router from '../route';
 import { useStore } from 'vuex';
 import Loader from './Loader.vue';
 

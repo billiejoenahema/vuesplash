@@ -12,7 +12,7 @@ import Toast from './components/Toast.vue';
     <main>
       <div class="container">
         <Toast />
-        <RouterView />
+        <router-view />
       </div>
     </main>
     <Footer />

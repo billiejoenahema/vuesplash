@@ -23,7 +23,7 @@ const like = () => {
         :alt="`Photo by ${item.user.name}`"
       />
     </figure>
-    <RouterLink
+    <router-link
       class="photo__overlay"
       :to="`/photos/${props.item.id}`"
       :title="`View the photo by ${item.user.name}`"
@@ -51,6 +51,6 @@ const like = () => {
       <div class="photo__username">
         {{ props.item.user.name }}
       </div>
-    </RouterLink>
+    </router-link>
   </div>
 </template>

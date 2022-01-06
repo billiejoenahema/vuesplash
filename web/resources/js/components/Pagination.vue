@@ -13,17 +13,17 @@ const isLastPage = computed(
 
 <template>
   <div class="pagination">
-    <RouterLink
+    <router-link
       v-if="!isFirstPage"
       :to="`/?page=${currentPage - 1}`"
       class="button"
-      >&laquo; prev</RouterLink
+      >&laquo; prev</router-link
     >
-    <RouterLink
+    <router-link
       v-if="!isLastPage"
       :to="`/?page=${currentPage + 1}`"
       class="button"
-      >next &raquo;</RouterLink
+      >next &raquo;</router-link
     >
   </div>
 </template>
