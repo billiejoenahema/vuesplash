@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PhotoList from '../pages/PhotoList';
-import UserLogin from '../pages/UserLogin';
-import SystemError from '../pages/errors/SystemError.vue';
+import NotFound from '../pages/errors/NotFound';
 import PhotoDetail from '../components/PhotoDetail.vue';
+import PhotoList from '../pages/PhotoList';
+import SystemError from '../pages/errors/SystemError.vue';
+import UserLogin from '../pages/UserLogin';
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/500',
     component: SystemError,
+  },
+  {
+    path: '/:catchAll(.*)',
+    component: NotFound,
   },
 ];
 
