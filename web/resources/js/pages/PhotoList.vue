@@ -1,8 +1,8 @@
 <script setup>
 import { computed, defineProps, watchEffect } from 'vue';
 import { useStore } from 'vuex';
-import Photo from '../components/Photo';
-import Pagination from '../components/Pagination';
+import PhotoItem from '../components/PhotoItem';
+import ThePagination from '../components/ThePagination';
 
 const store = useStore();
 const props = defineProps({
@@ -56,7 +56,7 @@ watchEffect(() => {
 <template>
   <div class="photo-list">
     <div class="grid">
-      <Photo
+      <PhotoItem
         class="grid__item"
         v-for="photo in photos"
         :key="photo.id"
@@ -64,7 +64,7 @@ watchEffect(() => {
         @like="onLikeClick"
       />
     </div>
-    <Pagination
+    <ThePagination
       :current-page="currentPage"
       :last-page="lastPage"
     />

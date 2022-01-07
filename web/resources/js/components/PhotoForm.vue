@@ -2,7 +2,7 @@
 import { defineEmits, ref } from 'vue';
 import router from '../route';
 import { useStore } from 'vuex';
-import Loader from './Loader.vue';
+import TheLoader from './TheLoader.vue';
 
 const store = useStore();
 
@@ -54,7 +54,7 @@ const uploadFile = async () => {
   <div class="photo-form">
     <h2 class="title">Submit a photo</h2>
     <div v-show="loading" class="panel">
-      <Loader>Sending your photo...</Loader>
+      <TheLoader>Sending your photo...</TheLoader>
     </div>
     <form
       v-show="!loading"

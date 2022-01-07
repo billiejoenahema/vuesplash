@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import NotFound from '../pages/errors/NotFound';
-import PhotoDetail from '../components/PhotoDetail.vue';
+import PhotoDetail from '../pages/PhotoDetail.vue';
 import PhotoList from '../pages/PhotoList';
 import SystemError from '../pages/errors/SystemError.vue';
 import UserLogin from '../pages/UserLogin';

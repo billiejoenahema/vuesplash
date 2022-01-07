@@ -1,20 +1,20 @@
 <script setup>
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
-import Toast from './components/Toast.vue';
+import TheNavbar from './components/TheNavbar.vue';
+import TheFooter from './components/TheFooter.vue';
+import TheToast from './components/TheToast.vue';
 </script>
 
 <template>
   <div>
     <header>
-      <Navbar />
+      <TheNavbar />
     </header>
     <main>
       <div class="container">
-        <Toast />
+        <TheToast />
         <router-view />
       </div>
     </main>
-    <Footer />
+    <TheFooter />
   </div>
 </template>
