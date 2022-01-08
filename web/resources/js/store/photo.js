@@ -17,6 +17,9 @@ const getters = {
   photos: (state) => {
     return state.data?.data;
   },
+  photoCount: (state) => {
+    return state.data.meta?.total;
+  },
   currentPage: (state) => {
     return state.data.meta?.current_page;
   },

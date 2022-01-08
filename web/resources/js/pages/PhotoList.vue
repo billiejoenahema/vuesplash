@@ -23,6 +23,10 @@ const photos = computed(
   () => store.getters['photo/photos']
 );
 
+const photoCount = computed(
+  () => store.getters['photo/photoCount']
+);
+
 const currentPage = computed(
   () => store.getters['photo/currentPage']
 );
@@ -54,6 +58,7 @@ watchEffect(() => {
 </script>
 
 <template>
+  <div>フォト投稿数: {{ photoCount }}</div>
   <div class="photo-list">
     <div class="grid">
       <PhotoItem
