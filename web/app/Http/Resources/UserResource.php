@@ -17,6 +17,8 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'photos' => PhotoResource::collection($this->photos),
+            'likePhotos' => PhotoResource::collection($this->likePhotos),
         ];
     }
 }

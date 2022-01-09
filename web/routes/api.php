@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Api\LoginUserController;
-use App\Http\Controllers\Api\PhotoController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\Api\LoginUserController;
+use App\Http\Controllers\Api\PhotoController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,9 @@ use App\Http\Controllers\Api\LikeController;
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// ユーザー
+Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
 
 // フォト
 Route::get('/photos', [PhotoController::class, 'index'])->name('photo.index');

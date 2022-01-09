@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     /** JSONに含める属性 */
     protected $visible = [
-        'name',
+        'name', 'photos', 'likePhotos'
     ];
 
     /**
@@ -50,6 +50,6 @@ class User extends Authenticatable
      */
     public function likePhotos()
     {
-        return $this->hasMany('App\Models\Photo', 'like', 'user_id', 'photo_id');
+        return $this->belongsToMany(Photo::class, 'likes');
     }
 }

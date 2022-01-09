@@ -17,10 +17,11 @@ class PhotoResource extends JsonResource
         return [
             'id' => $this->id,
             'url' => $this->url,
-            'user' => new UserResource($this->user),
-            'comments' => CommentResource::collection($this->comments),
+            'user' => $this->user,
+            'comments' => $this->comments,
             'likeUsers' => $this->likeUsers,
             'liked_by_user' => $this->likedByUser,
+            // 'photo_count' => $this->photoCount,
         ];
     }
 }

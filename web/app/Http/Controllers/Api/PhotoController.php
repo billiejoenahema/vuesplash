@@ -38,9 +38,8 @@ class PhotoController extends Controller
      */
     public function show(String $id)
     {
-        $photo = Photo::where('id', $id)
-            ->with(['user', 'comments', 'comments.user'])
-            ->first();
+        $photo = Photo::with(['user', 'user.photos', 'user.likePhotos', 'comments', 'comments.user'])
+            ->findOrFail($id);
         return new PhotoResource($photo) ?? abort(404);
     }
 
