@@ -20072,6 +20072,9 @@ __webpack_require__.r(__webpack_exports__);
     var photos = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/photos'];
     });
+    var photoCount = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['photo/photoCount'];
+    });
     var currentPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/currentPage'];
     });
@@ -20110,6 +20113,7 @@ __webpack_require__.r(__webpack_exports__);
       props: props,
       isLogin: isLogin,
       photos: photos,
+      photoCount: photoCount,
       currentPage: currentPage,
       lastPage: lastPage,
       hasErrors: hasErrors,
@@ -20850,7 +20854,9 @@ var _hoisted_2 = {
   "class": "grid"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photos, function (photo) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "フォト投稿数: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photoCount), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photos, function (photo) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PhotoItem"], {
       "class": "grid__item",
       key: photo.id,
@@ -20866,7 +20872,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "last-page": $setup.lastPage
   }, null, 8
   /* PROPS */
-  , ["current-page", "last-page"])]);
+  , ["current-page", "last-page"])])], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),
@@ -21231,7 +21239,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* eslint-disable no-undef */
 var state = {
   user: {},
-  login_user: {},
   errors: []
 };
 var getters = {
@@ -21575,15 +21582,20 @@ var getters = {
 
     return (_state$data = state.data) === null || _state$data === void 0 ? void 0 : _state$data.data;
   },
-  currentPage: function currentPage(state) {
+  photoCount: function photoCount(state) {
     var _state$data$meta;
 
-    return (_state$data$meta = state.data.meta) === null || _state$data$meta === void 0 ? void 0 : _state$data$meta.current_page;
+    return (_state$data$meta = state.data.meta) === null || _state$data$meta === void 0 ? void 0 : _state$data$meta.total;
   },
-  lastPage: function lastPage(state) {
+  currentPage: function currentPage(state) {
     var _state$data$meta2;
 
-    return (_state$data$meta2 = state.data.meta) === null || _state$data$meta2 === void 0 ? void 0 : _state$data$meta2.last_page;
+    return (_state$data$meta2 = state.data.meta) === null || _state$data$meta2 === void 0 ? void 0 : _state$data$meta2.current_page;
+  },
+  lastPage: function lastPage(state) {
+    var _state$data$meta3;
+
+    return (_state$data$meta3 = state.data.meta) === null || _state$data$meta3 === void 0 ? void 0 : _state$data$meta3.last_page;
   }
 };
 var actions = {

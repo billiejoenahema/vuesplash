@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 const state = {
   user: {},
-  login_user: {},
   errors: [],
 };
 
