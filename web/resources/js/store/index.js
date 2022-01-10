@@ -5,6 +5,7 @@ import error from './error';
 import like from './like';
 import photo from './photo';
 import toast from './toast';
+import user from './user';
 
 export const store = createStore({
   modules: {
@@ -13,5 +14,6 @@ export const store = createStore({
     like,
     photo,
     toast,
+    user,
   },
 });

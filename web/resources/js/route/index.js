@@ -3,6 +3,7 @@ import NotFound from '../pages/errors/NotFound';
 import PhotoDetail from '../pages/PhotoDetail.vue';
 import PhotoList from '../pages/PhotoList';
 import SystemError from '../pages/errors/SystemError.vue';
+import UserDetail from '../pages/UserDetail.vue';
 import UserLogin from '../pages/UserLogin';
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
   {
     path: '/photos/:id',
     component: PhotoDetail,
+    props: true,
+  },
+  {
+    path: '/users/:id',
+    component: UserDetail,
     props: true,
   },
   {
