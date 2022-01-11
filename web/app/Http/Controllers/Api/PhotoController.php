@@ -61,4 +61,18 @@ class PhotoController extends Controller
 
         return response($photo, 201);
     }
+
+    /**
+     * フォトを削除する
+     *
+     * @return Photo
+     */
+    public function delete(String $id)
+    {
+        $photo = Photo::findOrFail($id);
+        if ($photo) {
+            $photo->delete();
+        }
+        return;
+    }
 }

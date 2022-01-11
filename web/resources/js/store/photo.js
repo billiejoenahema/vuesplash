@@ -26,6 +26,9 @@ const getters = {
   lastPage: (state) => {
     return state.data.meta?.last_page;
   },
+  hasErrors: (state) => {
+    return state.errors.length;
+  },
 };
 
 const actions = {
@@ -54,6 +57,16 @@ const actions = {
       .get(`/api/photos/?page=${page}`)
       .then((res) => {
         commit('setData', res.data);
+      })
+      .catch((err) => {
+        commit('setErrors', err);
+      });
+  },
+  async delete({ commit }, photoId) {
+    await axios
+      .delete(`/api/photos/${photoId}`)
+      .then((res) => {
+        console.log(res);
       })
       .catch((err) => {
         commit('setErrors', err);

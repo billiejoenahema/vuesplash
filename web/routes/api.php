@@ -31,6 +31,9 @@ Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
 Route::get('/photos', [PhotoController::class, 'index'])->name('photo.index');
 Route::get('/photos/{id}', [PhotoController::class, 'show'])->name('photo.show');
 Route::post('/photos', [PhotoController::class, 'create'])->name('photo.create');
+Route::delete('/photos/{id}', [PhotoController::class, 'delete'])->name('photo.delete');
+
+// ログインが必要な操作
 Route::group(['middleware' => ['auth']], function () {
     // ログインユーザー
     Route::get('/login_user', LoginUserController::class)->name('login_user');

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, defineProps, ref } from 'vue';
 import { useStore } from 'vuex';
+import router from '../route';
 
 const store = useStore();
 const props = defineProps({
@@ -14,9 +15,15 @@ store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
+const loginUser = computed(
+  () => store.getters['auth/loginUser']
+);
 store.dispatch('photo/getPhoto', props.id);
 const photo = computed(() => store.getters['photo/photo']);
-const hasErrors = computed(
+const likeHasErrors = computed(
+  () => store.getters['like/hasErrors']
+);
+const photoHasErrors = computed(
   () => store.getters['like/hasErrors']
 );
 const fullWidth = ref(false);
@@ -39,8 +46,18 @@ const onLikeClick = () => {
   } else {
     store.dispatch('like/put', props.id);
   }
-  if (!hasErrors.value) {
+  if (!likeHasErrors.value) {
     store.dispatch('photo/getPhoto', props.id);
+  }
+};
+
+const deletePhoto = async () => {
+  if (!isLogin.value) {
+    return;
+  }
+  await store.dispatch('photo/delete', props.id);
+  if (!photoHasErrors.value) {
+    router.push('/');
   }
 };
 </script>
@@ -56,11 +73,25 @@ const onLikeClick = () => {
       @click="fullWidth = !fullWidth"
     >
       <img :src="photo.url" alt="" />
-      <figcaption>
-        Posted by {{ photo.user.name }}
-      </figcaption>
     </figure>
+    <figcaption>
+      Posted by
+      <router-link
+        class="user-name"
+        :to="`/users/${photo.user.id}`"
+      >
+        {{ photo.user.name }}
+      </router-link>
+    </figcaption>
     <div class="photo-detail__pane">
+      <div
+        class="form__button"
+        v-show="loginUser.id === photo.user.id"
+      >
+        <button type="submit" @click="deletePhoto">
+          削除
+        </button>
+      </div>
       <button
         :class="{ 'button--liked': photo.liked_by_user }"
         title="Like photo"
