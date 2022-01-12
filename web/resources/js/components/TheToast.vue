@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 
-const toast = computed(() => store.getters.content);
+const toast = computed(() => store.getters['toast/toast']);
 </script>
 
 <template>

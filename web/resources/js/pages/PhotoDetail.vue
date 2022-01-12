@@ -36,17 +36,23 @@ const postComment = async () => {
   newComment.value = '';
   store.dispatch('photo/getPhoto', props.id);
 };
-const onLikeClick = () => {
+const onLikeClick = async () => {
   if (!isLogin.value) {
     alert('いいね機能を使うにはログインしてください。');
     return;
   }
   if (photo.value.liked_by_user) {
-    store.dispatch('like/delete', props.id);
+    await store.dispatch('like/delete', props.id);
   } else {
-    store.dispatch('like/put', props.id);
+    await store.dispatch('like/put', props.id);
   }
   if (!likeHasErrors.value) {
+    store.commit('toast/setContent', {
+      content: photo.value.liked_by_user
+        ? 'いいねを解除しました！'
+        : 'いいねしました！',
+      timeout: 4000,
+    });
     store.dispatch('photo/getPhoto', props.id);
   }
 };
