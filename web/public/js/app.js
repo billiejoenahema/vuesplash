@@ -19895,7 +19895,7 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
     var toast = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters.content;
+      return store.getters['toast/toast'];
     });
     var __returned__ = {
       store: store,
@@ -19927,12 +19927,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../route */ "./resources/js/route/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -19947,16 +19949,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
     store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['auth/isLogin'];
+    });
+    var loginUser = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['auth/loginUser'];
     });
     store.dispatch('photo/getPhoto', props.id);
     var photo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['photo/photo'];
     });
-    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+    var likeHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['like/hasErrors'];
+    });
+    var photoHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['like/hasErrors'];
     });
     var fullWidth = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
@@ -19991,36 +19999,111 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }();
 
-    var onLikeClick = function onLikeClick() {
-      if (!isLogin.value) {
-        alert('いいね機能を使うにはログインしてください。');
-        return;
-      }
+    var onLikeClick = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (isLogin.value) {
+                  _context2.next = 3;
+                  break;
+                }
 
-      if (photo.value.liked_by_user) {
-        store.dispatch('like/delete', props.id);
-      } else {
-        store.dispatch('like/put', props.id);
-      }
+                alert('いいね機能を使うにはログインしてください。');
+                return _context2.abrupt("return");
 
-      if (!hasErrors.value) {
-        store.dispatch('photo/getPhoto', props.id);
-      }
-    };
+              case 3:
+                if (!photo.value.liked_by_user) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                _context2.next = 6;
+                return store.dispatch('like/delete', props.id);
+
+              case 6:
+                _context2.next = 10;
+                break;
+
+              case 8:
+                _context2.next = 10;
+                return store.dispatch('like/put', props.id);
+
+              case 10:
+                if (!likeHasErrors.value) {
+                  store.commit('toast/setContent', {
+                    content: photo.value.liked_by_user ? 'いいねを解除しました！' : 'いいねしました！',
+                    timeout: 4000
+                  });
+                  store.dispatch('photo/getPhoto', props.id);
+                }
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function onLikeClick() {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+
+    var deletePhoto = /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (isLogin.value) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 2:
+                _context3.next = 4;
+                return store.dispatch('photo/delete', props.id);
+
+              case 4:
+                if (!photoHasErrors.value) {
+                  _route__WEBPACK_IMPORTED_MODULE_2__["default"].push('/');
+                }
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function deletePhoto() {
+        return _ref4.apply(this, arguments);
+      };
+    }();
 
     var __returned__ = {
       store: store,
       props: props,
       isLogin: isLogin,
+      loginUser: loginUser,
       photo: photo,
-      hasErrors: hasErrors,
+      likeHasErrors: likeHasErrors,
+      photoHasErrors: photoHasErrors,
       fullWidth: fullWidth,
       newComment: newComment,
       postComment: postComment,
       onLikeClick: onLikeClick,
+      deletePhoto: deletePhoto,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
+      router: _route__WEBPACK_IMPORTED_MODULE_2__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -20163,6 +20246,34 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    store.dispatch('auth/loginUser');
+    var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['auth/isLogin'];
+    });
+    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['like/hasErrors'];
+    });
+
+    var onLikeClick = function onLikeClick(_ref2) {
+      var id = _ref2.id,
+          liked = _ref2.liked;
+
+      if (!isLogin.value) {
+        alert('いいね機能を使うにはログインしてください。');
+        return;
+      }
+
+      if (liked) {
+        store.dispatch('like/delete', id);
+      } else {
+        store.dispatch('like/put', id);
+      }
+
+      if (!hasErrors.value) {
+        store.dispatch('photo/getPhotos', props.page);
+      }
+    };
+
     store.dispatch('user/getUser', props.id);
     var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['user/user'];
@@ -20170,6 +20281,9 @@ __webpack_require__.r(__webpack_exports__);
     var __returned__ = {
       store: store,
       props: props,
+      isLogin: isLogin,
+      hasErrors: hasErrors,
+      onLikeClick: onLikeClick,
       user: user,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
@@ -20342,7 +20456,7 @@ var _hoisted_1 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TheNavbar"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TheToast"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TheFooter"])]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TheNavbar"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TheToast"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TheFooter"])]);
 }
 
 /***/ }),
@@ -20767,29 +20881,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = ["src"];
-var _hoisted_2 = {
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Posted by ");
+
+var _hoisted_3 = {
   "class": "photo-detail__pane"
 };
+var _hoisted_4 = {
+  "class": "form__button"
+};
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-heart"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_4 = ["href"];
+var _hoisted_6 = ["href"];
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-arrow-round-down"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Download ");
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Download ");
 
-var _hoisted_7 = [_hoisted_5, _hoisted_6];
+var _hoisted_9 = [_hoisted_7, _hoisted_8];
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "photo-detail__title"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-chatboxes"
@@ -20797,25 +20917,27 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_9 = {
+var _hoisted_11 = {
   key: 0,
   "class": "photo-detail__comments"
 };
-var _hoisted_10 = {
+var _hoisted_12 = {
   "class": "photo-detail__commentBody"
 };
-var _hoisted_11 = {
+var _hoisted_13 = {
   "class": "photo-detail__commentInfo"
 };
-var _hoisted_12 = {
+var _hoisted_14 = {
   key: 1
 };
-var _hoisted_13 = ["onSubmit"];
-var _hoisted_14 = {
+var _hoisted_15 = ["onSubmit"];
+var _hoisted_16 = {
   "class": "form__button"
 };
-var _hoisted_15 = ["disabled"];
+var _hoisted_17 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
+
   return $setup.photo ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["photo-detail", {
@@ -20831,15 +20953,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     alt: ""
   }, null, 8
   /* PROPS */
-  , _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("figcaption", null, " Posted by " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.user.name), 1
-  /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , _hoisted_1)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("figcaption", null, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    "class": "user-name",
+    to: "/users/".concat($setup.photo.user.id)
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.user.name), 1
+      /* TEXT */
+      )];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["to"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "submit",
+    onClick: $setup.deletePhoto
+  }, " 削除 ")], 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.loginUser.id === $setup.photo.user.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       'button--liked': $setup.photo.liked_by_user
     }),
     title: "Like photo",
     onClick: $setup.onLikeClick
-  }, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.likeUsers.length), 1
+  }, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.likeUsers.length), 1
   /* TEXT */
   )], 2
   /* CLASS */
@@ -20847,20 +20986,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     href: "/photos/".concat($setup.photo.id, "/download"),
     "class": "button",
     title: "Download photo"
-  }, _hoisted_7, 8
+  }, _hoisted_9, 8
   /* PROPS */
-  , _hoisted_4), _hoisted_8, $setup.photo.comments.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_9, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photo.comments, function (comment) {
+  , _hoisted_6), _hoisted_10, $setup.photo.comments.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photo.comments, function (comment) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: comment.id,
       "class": "photo-detail__commentItem"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.content), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.content), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.user.name), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.user.name), 1
     /* TEXT */
     )]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_12, "No comments yet.")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_14, "No comments yet.")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.postComment, ["prevent"]),
     "class": "form"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
@@ -20870,15 +21009,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newComment]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newComment]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
     "class": "button button--inverse",
     disabled: !$setup.newComment
   }, " submit comment ", 8
   /* PROPS */
-  , _hoisted_15)])], 40
+  , _hoisted_17)])], 40
   /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_13), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isLogin]])])], 2
+  , _hoisted_15), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isLogin]])])], 2
   /* CLASS */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
@@ -20962,10 +21101,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "grid__item",
       key: photo.id,
       item: photo,
-      onLike: _ctx.onLikeClick
+      onLike: $setup.onLikeClick
     }, null, 8
     /* PROPS */
-    , ["item", "onLike"]);
+    , ["item"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])], 64
@@ -21351,6 +21490,9 @@ var getters = {
 
     return false;
   },
+  loginUser: function loginUser(state) {
+    return state.user;
+  },
   userName: function userName(state) {
     var _state$user$name, _state$user;
 
@@ -21701,6 +21843,9 @@ var getters = {
     var _state$data$meta3;
 
     return (_state$data$meta3 = state.data.meta) === null || _state$data$meta3 === void 0 ? void 0 : _state$data$meta3.last_page;
+  },
+  hasErrors: function hasErrors(state) {
+    return state.errors.length;
   }
 };
 var actions = {
@@ -21773,16 +21918,39 @@ var actions = {
       }, _callee3);
     }))();
   },
-  postComment: function postComment(_ref4, _ref5) {
+  "delete": function _delete(_ref4, photoId) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      var commit, photoId, content;
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
-              photoId = _ref5.photoId, content = _ref5.content;
-              _context4.next = 4;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/photos/".concat(photoId)).then(function (res) {
+                console.log(res);
+              })["catch"](function (err) {
+                commit('setErrors', err);
+              });
+
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
+  },
+  postComment: function postComment(_ref5, _ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var commit, photoId, content;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              photoId = _ref6.photoId, content = _ref6.content;
+              _context5.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/comments/".concat(photoId), {
                 content: content
               }).then(function (res) {
@@ -21793,10 +21961,10 @@ var actions = {
 
             case 4:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   }
 };
@@ -21957,7 +22125,6 @@ var actions = {
               commit = _ref2.commit;
               _context2.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/users/".concat(id)).then(function (res) {
-                console.log(res.data);
                 commit('setUser', res.data.data);
               })["catch"](function (err) {
                 commit('setErrors', err);

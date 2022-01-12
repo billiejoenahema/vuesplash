@@ -10455,10 +10455,13 @@ img {
 }
 
 .toast {
-  background: #d7f9ee;
-  border: 1px solid #41e2b2;
+  background: #117355;
   border-radius: 0.25rem;
-  color: #117355;
+  color: #ffe7e7;
   margin-bottom: 1.5rem;
   padding: 1rem;
+}
+
+.user-name {
+  font-weight: bold;
 }

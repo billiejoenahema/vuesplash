@@ -11,6 +11,9 @@ const getters = {
     }
     return false;
   },
+  loginUser(state) {
+    return state.user;
+  },
   userName(state) {
     return state.user?.name ?? '';
   },
