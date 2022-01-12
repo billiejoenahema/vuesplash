@@ -20246,6 +20246,10 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    store.dispatch('user/getUser', props.id);
+    var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['user/user'];
+    });
     store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
@@ -20270,21 +20274,17 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (!hasErrors.value) {
-        store.dispatch('photo/getPhotos', props.page);
+        store.dispatch('user/getUser', props.id);
       }
     };
 
-    store.dispatch('user/getUser', props.id);
-    var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters['user/user'];
-    });
     var __returned__ = {
       store: store,
       props: props,
+      user: user,
       isLogin: isLogin,
       hasErrors: hasErrors,
       onLikeClick: onLikeClick,
-      user: user,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
       PhotoItem: _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__["default"]

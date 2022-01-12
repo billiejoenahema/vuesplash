@@ -11,6 +11,9 @@ const props = defineProps({
   },
 });
 
+store.dispatch('user/getUser', props.id);
+const user = computed(() => store.getters['user/user']);
+
 store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
@@ -30,12 +33,9 @@ const onLikeClick = ({ id, liked }) => {
     store.dispatch('like/put', id);
   }
   if (!hasErrors.value) {
-    store.dispatch('photo/getPhotos', props.page);
+    store.dispatch('user/getUser', props.id);
   }
 };
-
-store.dispatch('user/getUser', props.id);
-const user = computed(() => store.getters['user/user']);
 </script>
 <template>
   <div>User Page</div>
