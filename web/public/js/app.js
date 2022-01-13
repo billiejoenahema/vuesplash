@@ -19927,13 +19927,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../route */ "./resources/js/route/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functions/alertLogin */ "./resources/js/functions/alertLogin.js");
+/* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../route */ "./resources/js/route/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -19949,7 +19951,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
     store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['auth/isLogin'];
@@ -20005,32 +20007,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (isLogin.value) {
-                  _context2.next = 3;
-                  break;
-                }
+                (0,_functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin)(isLogin.value);
 
-                alert('いいね機能を使うにはログインしてください。');
-                return _context2.abrupt("return");
-
-              case 3:
                 if (!photo.value.liked_by_user) {
-                  _context2.next = 8;
+                  _context2.next = 6;
                   break;
                 }
 
-                _context2.next = 6;
+                _context2.next = 4;
                 return store.dispatch('like/delete', props.id);
 
-              case 6:
-                _context2.next = 10;
+              case 4:
+                _context2.next = 8;
                 break;
 
-              case 8:
-                _context2.next = 10;
+              case 6:
+                _context2.next = 8;
                 return store.dispatch('like/put', props.id);
 
-              case 10:
+              case 8:
                 if (!likeHasErrors.value) {
                   store.commit('toast/setContent', {
                     content: photo.value.liked_by_user ? 'いいねを解除しました！' : 'いいねしました！',
@@ -20039,7 +20034,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   store.dispatch('photo/getPhoto', props.id);
                 }
 
-              case 11:
+              case 9:
               case "end":
                 return _context2.stop();
             }
@@ -20071,7 +20066,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 if (!photoHasErrors.value) {
-                  _route__WEBPACK_IMPORTED_MODULE_2__["default"].push('/');
+                  _route__WEBPACK_IMPORTED_MODULE_3__["default"].push('/');
                 }
 
               case 5:
@@ -20102,8 +20097,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       deletePhoto: deletePhoto,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
-      router: _route__WEBPACK_IMPORTED_MODULE_2__["default"]
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
+      alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin,
+      router: _route__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -20127,9 +20123,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PhotoItem */ "./resources/js/components/PhotoItem.vue");
 /* harmony import */ var _components_ThePagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ThePagination */ "./resources/js/components/ThePagination.vue");
+/* harmony import */ var _functions_alertLogin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions/alertLogin */ "./resources/js/functions/alertLogin.js");
+
 
 
 
@@ -20146,7 +20144,7 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
     store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
@@ -20171,11 +20169,7 @@ __webpack_require__.r(__webpack_exports__);
     var onLikeClick = function onLikeClick(_ref2) {
       var id = _ref2.id,
           liked = _ref2.liked;
-
-      if (!isLogin.value) {
-        alert('いいね機能を使うにはログインしてください。');
-        return;
-      }
+      (0,_functions_alertLogin__WEBPACK_IMPORTED_MODULE_3__.alertLogin)(isLogin.value);
 
       if (liked) {
         store.dispatch('like/delete', id);
@@ -20203,9 +20197,10 @@ __webpack_require__.r(__webpack_exports__);
       onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       watchEffect: vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
       PhotoItem: _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__["default"],
-      ThePagination: _components_ThePagination__WEBPACK_IMPORTED_MODULE_2__["default"]
+      ThePagination: _components_ThePagination__WEBPACK_IMPORTED_MODULE_2__["default"],
+      alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_3__.alertLogin
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -20229,8 +20224,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PhotoItem */ "./resources/js/components/PhotoItem.vue");
+/* harmony import */ var _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functions/alertLogin */ "./resources/js/functions/alertLogin.js");
+
 
 
 
@@ -20245,7 +20242,7 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
     store.dispatch('user/getUser', props.id);
     var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['user/user'];
@@ -20261,11 +20258,7 @@ __webpack_require__.r(__webpack_exports__);
     var onLikeClick = function onLikeClick(_ref2) {
       var id = _ref2.id,
           liked = _ref2.liked;
-
-      if (!isLogin.value) {
-        alert('いいね機能を使うにはログインしてください。');
-        return;
-      }
+      (0,_functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin)(isLogin.value);
 
       if (liked) {
         store.dispatch('like/delete', id);
@@ -20286,8 +20279,9 @@ __webpack_require__.r(__webpack_exports__);
       hasErrors: hasErrors,
       onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
-      PhotoItem: _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__["default"]
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
+      PhotoItem: _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__["default"],
+      alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -21389,6 +21383,26 @@ window.axios.interceptors.request.use(function (config) {
   config.headers['X-XSRF-TOKEN'] = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getCookieValue)('XSRF-TOKEN');
   return config;
 });
+
+/***/ }),
+
+/***/ "./resources/js/functions/alertLogin.js":
+/*!**********************************************!*\
+  !*** ./resources/js/functions/alertLogin.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "alertLogin": () => (/* binding */ alertLogin)
+/* harmony export */ });
+var alertLogin = function alertLogin(isLogin) {
+  if (!isLogin) {
+    alert('いいね機能を使うにはログインしてください。');
+    return;
+  }
+};
 
 /***/ }),
 

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, defineProps, ref } from 'vue';
 import { useStore } from 'vuex';
+import { alertLogin } from '../functions/alertLogin';
 import router from '../route';
 
 const store = useStore();
@@ -37,10 +38,7 @@ const postComment = async () => {
   store.dispatch('photo/getPhoto', props.id);
 };
 const onLikeClick = async () => {
-  if (!isLogin.value) {
-    alert('いいね機能を使うにはログインしてください。');
-    return;
-  }
+  alertLogin(isLogin.value);
   if (photo.value.liked_by_user) {
     await store.dispatch('like/delete', props.id);
   } else {

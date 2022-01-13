@@ -3,6 +3,7 @@ import { computed, defineProps, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import PhotoItem from '../components/PhotoItem';
 import ThePagination from '../components/ThePagination';
+import { alertLogin } from '../functions/alertLogin';
 
 const store = useStore();
 const props = defineProps({
@@ -38,10 +39,7 @@ const hasErrors = computed(
 );
 
 const onLikeClick = ({ id, liked }) => {
-  if (!isLogin.value) {
-    alert('いいね機能を使うにはログインしてください。');
-    return;
-  }
+  alertLogin(isLogin.value);
   if (liked) {
     store.dispatch('like/delete', id);
   } else {
