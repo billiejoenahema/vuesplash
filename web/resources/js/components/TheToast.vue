@@ -12,3 +12,10 @@ const toast = computed(() => store.getters['toast/toast']);
     {{ toast }}
   </div>
 </template>
+
+<style scoped>
+.toast {
+  position: absolute;
+  top: 64px;
+}
+</style>

@@ -9,8 +9,8 @@ import TheToast from './components/TheToast.vue';
     <header>
       <TheNavbar />
     </header>
-    <TheToast />
     <main>
+      <TheToast />
       <div class="container">
         <router-view />
       </div>
