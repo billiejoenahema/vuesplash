@@ -1,7 +1,8 @@
 <script setup>
 import { computed, defineProps, ref } from 'vue';
 import { useStore } from 'vuex';
-import { alertLogin } from '../functions/alertLogin';
+import LikeButton from '../components/LikeButton';
+
 import router from '../route';
 
 const store = useStore();
@@ -21,9 +22,7 @@ const loginUser = computed(
 );
 store.dispatch('photo/getPhoto', props.id);
 const photo = computed(() => store.getters['photo/photo']);
-const likeHasErrors = computed(
-  () => store.getters['like/hasErrors']
-);
+
 const photoHasErrors = computed(
   () => store.getters['like/hasErrors']
 );
@@ -36,23 +35,6 @@ const postComment = async () => {
   });
   newComment.value = '';
   store.dispatch('photo/getPhoto', props.id);
-};
-const onLikeClick = async () => {
-  alertLogin(isLogin.value);
-  if (photo.value.liked_by_user) {
-    await store.dispatch('like/delete', props.id);
-  } else {
-    await store.dispatch('like/put', props.id);
-  }
-  if (!likeHasErrors.value) {
-    store.commit('toast/setContent', {
-      content: photo.value.liked_by_user
-        ? 'いいねを解除しました！'
-        : 'いいねしました！',
-      timeout: 4000,
-    });
-    store.dispatch('photo/getPhoto', props.id);
-  }
 };
 
 const deletePhoto = async () => {
@@ -96,14 +78,7 @@ const deletePhoto = async () => {
           削除
         </button>
       </div>
-      <button
-        :class="{ 'button--liked': photo.liked_by_user }"
-        title="Like photo"
-        @click="onLikeClick"
-      >
-        <i class="icon ion-md-heart"></i
-        >{{ photo.likeUsers.length }}
-      </button>
+      <LikeButton :photo="photo" :isLogin="isLogin" />
       <a
         :href="`/photos/${photo.id}/download`"
         class="button"

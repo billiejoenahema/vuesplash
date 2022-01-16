@@ -1,17 +1,14 @@
 <script setup>
-import { defineEmits, defineProps } from 'vue';
+import { defineProps } from 'vue';
+import LikeButton from './LikeButton.vue';
 const props = defineProps({
-  item: Object,
+  photo: Object,
+  isLogin: Boolean,
+  page: {
+    type: Number,
+    required: false,
+  },
 });
-
-const emit = defineEmits(['like']);
-
-const like = () => {
-  emit('like', {
-    id: props.item.id,
-    liked: props.item.liked_by_user,
-  });
-};
 </script>
 
 <template>
@@ -19,37 +16,32 @@ const like = () => {
     <figure class="photo__wrapper">
       <img
         class="photo__image"
-        :src="item.url"
-        :alt="`Photo by ${item.user.name}`"
+        :src="photo.url"
+        :alt="`Photo by ${photo.user.name}`"
       />
     </figure>
     <router-link
       class="photo__overlay"
-      :to="`/photos/${props.item.id}`"
-      :title="`View the photo by ${item.user.name}`"
+      :to="`/photos/${props.photo.id}`"
+      :title="`View the photo by ${photo.user.name}`"
     >
       <div class="photo__controls">
-        <button
-          :class="{
-            'photo__action--liked': item.liked_by_user,
-          }"
-          title="Like photo"
-          @click.prevent="like"
-        >
-          <i class="icon ion-md-heart"></i
-          >{{ item.likeUsers.length }}
-        </button>
+        <LikeButton
+          :photo="photo"
+          :isLogin="isLogin"
+          :page="page"
+        />
         <a
           class="photo__action"
           title="Download photo"
           @click.stop
-          :href="`/photos/${props.item.id}/download`"
+          :href="`/photos/${props.photo.id}/download`"
         >
           <i class="icon ion-md-arrow-round-down"></i>
         </a>
       </div>
       <div class="photo__username">
-        {{ props.item.user.name }}
+        {{ props.photo.user.name }}
       </div>
     </router-link>
   </div>

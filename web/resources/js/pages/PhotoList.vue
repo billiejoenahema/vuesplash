@@ -3,7 +3,6 @@ import { computed, defineProps, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import PhotoItem from '../components/PhotoItem';
 import ThePagination from '../components/ThePagination';
-import { alertLogin } from '../functions/alertLogin';
 
 const store = useStore();
 const props = defineProps({
@@ -34,21 +33,6 @@ const currentPage = computed(
 const lastPage = computed(
   () => store.getters['photo/lastPage']
 );
-const hasErrors = computed(
-  () => store.getters['like/hasErrors']
-);
-
-const onLikeClick = ({ id, liked }) => {
-  alertLogin(isLogin.value);
-  if (liked) {
-    store.dispatch('like/delete', id);
-  } else {
-    store.dispatch('like/put', id);
-  }
-  if (!hasErrors.value) {
-    store.dispatch('photo/getPhotos', props.page);
-  }
-};
 
 watchEffect(() => {
   store.dispatch('photo/getPhotos', props.page);
@@ -63,8 +47,9 @@ watchEffect(() => {
         class="grid__item"
         v-for="photo in photos"
         :key="photo.id"
-        :item="photo"
-        @like="onLikeClick"
+        :photo="photo"
+        :isLogin="isLogin"
+        :page="page"
       />
     </div>
     <ThePagination

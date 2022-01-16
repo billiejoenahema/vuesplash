@@ -19529,6 +19529,128 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LikeButton.vue?vue&type=script&setup=true&lang=js":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LikeButton.vue?vue&type=script&setup=true&lang=js ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functions/alertLogin */ "./resources/js/functions/alertLogin.js");
+/* harmony import */ var _store_photo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/photo */ "./resources/js/store/photo.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    photo: {
+      type: Object,
+      required: true
+    },
+    isLogin: {
+      type: Boolean,
+      required: true
+    },
+    page: {
+      type: Number,
+      required: false
+    }
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var props = __props;
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
+    var likeHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters['like/hasErrors'];
+    });
+
+    var onLikeClick = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                (0,_functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin)(props.isLogin);
+
+                if (!props.photo.liked_by_user) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.next = 4;
+                return store.dispatch('like/delete', props.photo.id);
+
+              case 4:
+                _context.next = 8;
+                break;
+
+              case 6:
+                _context.next = 8;
+                return store.dispatch('like/put', props.photo.id);
+
+              case 8:
+                if (!likeHasErrors.value) {
+                  store.commit('toast/setContent', {
+                    content: props.photo.liked_by_user ? 'いいねを解除しました！' : 'いいねしました！',
+                    timeout: 4000
+                  });
+
+                  if (props.page) {
+                    store.dispatch('photo/getPhotos', props.page);
+                  } else {
+                    store.dispatch('photo/getPhoto', props.photo.id);
+                  }
+                }
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function onLikeClick() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    var __returned__ = {
+      store: store,
+      props: props,
+      likeHasErrors: likeHasErrors,
+      onLikeClick: onLikeClick,
+      computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
+      alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin,
+      photo: _store_photo__WEBPACK_IMPORTED_MODULE_3__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/PhotoForm.vue?vue&type=script&setup=true&lang=js":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/PhotoForm.vue?vue&type=script&setup=true&lang=js ***!
@@ -19664,28 +19786,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _LikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LikeButton.vue */ "./resources/js/components/LikeButton.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    item: Object
+    photo: Object,
+    isLogin: Boolean,
+    page: {
+      type: Number,
+      required: false
+    }
   },
-  emits: ['like'],
   setup: function setup(__props, _ref) {
-    var expose = _ref.expose,
-        emit = _ref.emit;
+    var expose = _ref.expose;
     expose();
     var props = __props;
-
-    var like = function like() {
-      emit('like', {
-        id: props.item.id,
-        liked: props.item.liked_by_user
-      });
-    };
-
     var __returned__ = {
       props: props,
-      emit: emit,
-      like: like
+      LikeButton: _LikeButton_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -19928,7 +20046,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functions/alertLogin */ "./resources/js/functions/alertLogin.js");
+/* harmony import */ var _components_LikeButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/LikeButton */ "./resources/js/components/LikeButton.vue");
 /* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../route */ "./resources/js/route/index.js");
 
 
@@ -19962,9 +20080,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     store.dispatch('photo/getPhoto', props.id);
     var photo = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['photo/photo'];
-    });
-    var likeHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
-      return store.getters['like/hasErrors'];
     });
     var photoHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['like/hasErrors'];
@@ -20001,67 +20116,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }();
 
-    var onLikeClick = /*#__PURE__*/function () {
+    var deletePhoto = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                (0,_functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin)(isLogin.value);
-
-                if (!photo.value.liked_by_user) {
-                  _context2.next = 6;
-                  break;
-                }
-
-                _context2.next = 4;
-                return store.dispatch('like/delete', props.id);
-
-              case 4:
-                _context2.next = 8;
-                break;
-
-              case 6:
-                _context2.next = 8;
-                return store.dispatch('like/put', props.id);
-
-              case 8:
-                if (!likeHasErrors.value) {
-                  store.commit('toast/setContent', {
-                    content: photo.value.liked_by_user ? 'いいねを解除しました！' : 'いいねしました！',
-                    timeout: 4000
-                  });
-                  store.dispatch('photo/getPhoto', props.id);
-                }
-
-              case 9:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function onLikeClick() {
-        return _ref3.apply(this, arguments);
-      };
-    }();
-
-    var deletePhoto = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
                 if (isLogin.value) {
-                  _context3.next = 2;
+                  _context2.next = 2;
                   break;
                 }
 
-                return _context3.abrupt("return");
+                return _context2.abrupt("return");
 
               case 2:
-                _context3.next = 4;
+                _context2.next = 4;
                 return store.dispatch('photo/delete', props.id);
 
               case 4:
@@ -20071,14 +20140,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3);
+        }, _callee2);
       }));
 
       return function deletePhoto() {
-        return _ref4.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     }();
 
@@ -20088,17 +20157,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isLogin: isLogin,
       loginUser: loginUser,
       photo: photo,
-      likeHasErrors: likeHasErrors,
       photoHasErrors: photoHasErrors,
       fullWidth: fullWidth,
       newComment: newComment,
       postComment: postComment,
-      onLikeClick: onLikeClick,
       deletePhoto: deletePhoto,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
-      alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin,
+      LikeButton: _components_LikeButton__WEBPACK_IMPORTED_MODULE_2__["default"],
       router: _route__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -20123,11 +20190,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/PhotoItem */ "./resources/js/components/PhotoItem.vue");
 /* harmony import */ var _components_ThePagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/ThePagination */ "./resources/js/components/ThePagination.vue");
-/* harmony import */ var _functions_alertLogin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions/alertLogin */ "./resources/js/functions/alertLogin.js");
-
 
 
 
@@ -20144,7 +20209,7 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
     store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
@@ -20162,26 +20227,6 @@ __webpack_require__.r(__webpack_exports__);
     var lastPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/lastPage'];
     });
-    var hasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters['like/hasErrors'];
-    });
-
-    var onLikeClick = function onLikeClick(_ref2) {
-      var id = _ref2.id,
-          liked = _ref2.liked;
-      (0,_functions_alertLogin__WEBPACK_IMPORTED_MODULE_3__.alertLogin)(isLogin.value);
-
-      if (liked) {
-        store.dispatch('like/delete', id);
-      } else {
-        store.dispatch('like/put', id);
-      }
-
-      if (!hasErrors.value) {
-        store.dispatch('photo/getPhotos', props.page);
-      }
-    };
-
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect)(function () {
       store.dispatch('photo/getPhotos', props.page);
     });
@@ -20193,14 +20238,11 @@ __webpack_require__.r(__webpack_exports__);
       photoCount: photoCount,
       currentPage: currentPage,
       lastPage: lastPage,
-      hasErrors: hasErrors,
-      onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       watchEffect: vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
       PhotoItem: _components_PhotoItem__WEBPACK_IMPORTED_MODULE_1__["default"],
-      ThePagination: _components_ThePagination__WEBPACK_IMPORTED_MODULE_2__["default"],
-      alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_3__.alertLogin
+      ThePagination: _components_ThePagination__WEBPACK_IMPORTED_MODULE_2__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -20455,6 +20497,43 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LikeButton.vue?vue&type=template&id=2a9c25d4":
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LikeButton.vue?vue&type=template&id=2a9c25d4 ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = ["onClick"];
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "icon ion-md-heart"
+}, null, -1
+/* HOISTED */
+);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      'button--liked': $setup.photo.liked_by_user
+    }),
+    title: "Like photo",
+    onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.onLikeClick, ["prevent"])
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.likeUsers.length), 1
+  /* TEXT */
+  )], 10
+  /* CLASS, PROPS */
+  , _hoisted_1);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/PhotoForm.vue?vue&type=template&id=516c053b":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/PhotoForm.vue?vue&type=template&id=516c053b ***!
@@ -20550,24 +20629,16 @@ var _hoisted_3 = ["src", "alt"];
 var _hoisted_4 = {
   "class": "photo__controls"
 };
-var _hoisted_5 = ["onClick"];
+var _hoisted_5 = ["href"];
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "icon ion-md-heart"
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_7 = ["href"];
-
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-arrow-round-down"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_9 = [_hoisted_8];
-var _hoisted_10 = {
+var _hoisted_7 = [_hoisted_6];
+var _hoisted_8 = {
   "class": "photo__username"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -20575,34 +20646,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("figure", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "photo__image",
-    src: $props.item.url,
-    alt: "Photo by ".concat($props.item.user.name)
+    src: $props.photo.url,
+    alt: "Photo by ".concat($props.photo.user.name)
   }, null, 8
   /* PROPS */
   , _hoisted_3)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "photo__overlay",
-    to: "/photos/".concat($setup.props.item.id),
-    title: "View the photo by ".concat($props.item.user.name)
+    to: "/photos/".concat($setup.props.photo.id),
+    title: "View the photo by ".concat($props.photo.user.name)
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-          'photo__action--liked': $props.item.liked_by_user
-        }),
-        title: "Like photo",
-        onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.like, ["prevent"])
-      }, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.item.likeUsers.length), 1
-      /* TEXT */
-      )], 10
-      /* CLASS, PROPS */
-      , _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LikeButton"], {
+        photo: $props.photo,
+        isLogin: $props.isLogin,
+        page: $props.page
+      }, null, 8
+      /* PROPS */
+      , ["photo", "isLogin", "page"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
         "class": "photo__action",
         title: "Download photo",
         onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["stop"])),
-        href: "/photos/".concat($setup.props.item.id, "/download")
-      }, _hoisted_9, 8
+        href: "/photos/".concat($setup.props.photo.id, "/download")
+      }, _hoisted_7, 8
       /* PROPS */
-      , _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.item.user.name), 1
+      , _hoisted_5)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.photo.user.name), 1
       /* TEXT */
       )];
     }),
@@ -20884,26 +20951,19 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "form__button"
 };
+var _hoisted_5 = ["href"];
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "icon ion-md-heart"
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_6 = ["href"];
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-arrow-round-down"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Download ");
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Download ");
 
-var _hoisted_9 = [_hoisted_7, _hoisted_8];
+var _hoisted_8 = [_hoisted_6, _hoisted_7];
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "photo-detail__title"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "icon ion-md-chatboxes"
@@ -20911,24 +20971,24 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_10 = {
   key: 0,
   "class": "photo-detail__comments"
 };
-var _hoisted_12 = {
+var _hoisted_11 = {
   "class": "photo-detail__commentBody"
 };
-var _hoisted_13 = {
+var _hoisted_12 = {
   "class": "photo-detail__commentInfo"
 };
-var _hoisted_14 = {
+var _hoisted_13 = {
   key: 1
 };
-var _hoisted_15 = ["onSubmit"];
-var _hoisted_16 = {
+var _hoisted_14 = ["onSubmit"];
+var _hoisted_15 = {
   "class": "form__button"
 };
-var _hoisted_17 = ["disabled"];
+var _hoisted_16 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
@@ -20966,34 +21026,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: $setup.deletePhoto
   }, " 削除 ")], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.loginUser.id === $setup.photo.user.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      'button--liked': $setup.photo.liked_by_user
-    }),
-    title: "Like photo",
-    onClick: $setup.onLikeClick
-  }, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.likeUsers.length), 1
-  /* TEXT */
-  )], 2
-  /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.loginUser.id === $setup.photo.user.id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LikeButton"], {
+    photo: $setup.photo,
+    isLogin: $setup.isLogin
+  }, null, 8
+  /* PROPS */
+  , ["photo", "isLogin"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "/photos/".concat($setup.photo.id, "/download"),
     "class": "button",
     title: "Download photo"
-  }, _hoisted_9, 8
+  }, _hoisted_8, 8
   /* PROPS */
-  , _hoisted_6), _hoisted_10, $setup.photo.comments.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photo.comments, function (comment) {
+  , _hoisted_5), _hoisted_9, $setup.photo.comments.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("ul", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.photo.comments, function (comment) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: comment.id,
       "class": "photo-detail__commentItem"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.content), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.content), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.user.name), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.user.name), 1
     /* TEXT */
     )]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_14, "No comments yet.")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_13, "No comments yet.")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.postComment, ["prevent"]),
     "class": "form"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
@@ -21003,15 +21058,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newComment]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.newComment]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
     "class": "button button--inverse",
     disabled: !$setup.newComment
   }, " submit comment ", 8
   /* PROPS */
-  , _hoisted_17)])], 40
+  , _hoisted_16)])], 40
   /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_15), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isLogin]])])], 2
+  , _hoisted_14), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isLogin]])])], 2
   /* CLASS */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
@@ -21044,11 +21099,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PhotoItem"], {
       "class": "grid__item",
       key: photo.id,
-      item: photo,
-      onLike: $setup.onLikeClick
+      photo: photo,
+      isLogin: $setup.isLogin,
+      page: $props.page
     }, null, 8
     /* PROPS */
-    , ["item"]);
+    , ["photo", "isLogin", "page"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ThePagination"], {
@@ -23687,6 +23743,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/components/LikeButton.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/LikeButton.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LikeButton_vue_vue_type_template_id_2a9c25d4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LikeButton.vue?vue&type=template&id=2a9c25d4 */ "./resources/js/components/LikeButton.vue?vue&type=template&id=2a9c25d4");
+/* harmony import */ var _LikeButton_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LikeButton.vue?vue&type=script&setup=true&lang=js */ "./resources/js/components/LikeButton.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _var_www_html_vuesplash_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_var_www_html_vuesplash_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LikeButton_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LikeButton_vue_vue_type_template_id_2a9c25d4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/LikeButton.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/components/PhotoForm.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/PhotoForm.vue ***!
@@ -24064,6 +24148,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/LikeButton.vue?vue&type=script&setup=true&lang=js":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/LikeButton.vue?vue&type=script&setup=true&lang=js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LikeButton_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LikeButton_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LikeButton.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LikeButton.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/components/PhotoForm.vue?vue&type=script&setup=true&lang=js":
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/PhotoForm.vue?vue&type=script&setup=true&lang=js ***!
@@ -24236,6 +24336,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_App_vue_vue_type_template_id_f348271a__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_App_vue_vue_type_template_id_f348271a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./App.vue?vue&type=template&id=f348271a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/App.vue?vue&type=template&id=f348271a");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/LikeButton.vue?vue&type=template&id=2a9c25d4":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/LikeButton.vue?vue&type=template&id=2a9c25d4 ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LikeButton_vue_vue_type_template_id_2a9c25d4__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_LikeButton_vue_vue_type_template_id_2a9c25d4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./LikeButton.vue?vue&type=template&id=2a9c25d4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/LikeButton.vue?vue&type=template&id=2a9c25d4");
 
 
 /***/ }),

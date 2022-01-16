@@ -2,6 +2,7 @@
 import { computed, defineProps } from 'vue';
 import { useStore } from 'vuex';
 import { alertLogin } from '../functions/alertLogin';
+import photo from '../store/photo';
 
 const store = useStore();
 
@@ -13,6 +14,10 @@ const props = defineProps({
   isLogin: {
     type: Boolean,
     required: true,
+  },
+  page: {
+    type: Number,
+    required: false,
   },
 });
 
@@ -34,7 +39,11 @@ const onLikeClick = async () => {
         : 'いいねしました！',
       timeout: 4000,
     });
-    store.dispatch('photo/getPhoto', props.photo.id);
+    if (props.page) {
+      store.dispatch('photo/getPhotos', props.page);
+    } else {
+      store.dispatch('photo/getPhoto', props.photo.id);
+    }
   }
 };
 </script>
@@ -43,7 +52,7 @@ const onLikeClick = async () => {
   <button
     :class="{ 'button--liked': photo.liked_by_user }"
     title="Like photo"
-    @click="onLikeClick"
+    @click.prevent="onLikeClick"
   >
     <i class="icon ion-md-heart"></i
     >{{ photo.likeUsers.length }}
