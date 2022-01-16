@@ -13,12 +13,13 @@ const props = defineProps({
   },
 });
 
-store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
 
-store.dispatch('photo/getPhotos', props.page);
+watchEffect(() => {
+  store.dispatch('photo/getPhotos', props.page);
+});
 const photos = computed(
   () => store.getters['photo/photos']
 );
@@ -33,10 +34,6 @@ const currentPage = computed(
 const lastPage = computed(
   () => store.getters['photo/lastPage']
 );
-
-watchEffect(() => {
-  store.dispatch('photo/getPhotos', props.page);
-});
 </script>
 
 <template>

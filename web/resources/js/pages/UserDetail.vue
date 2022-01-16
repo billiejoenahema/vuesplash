@@ -14,8 +14,6 @@ const props = defineProps({
 
 store.dispatch('user/getUser', props.id);
 const user = computed(() => store.getters['user/user']);
-
-store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
@@ -44,7 +42,7 @@ const onLikeClick = ({ id, liked }) => {
         class="grid__item"
         v-for="photo in user.photos"
         :key="photo.id"
-        :item="photo"
+        :photo="photo"
         @like="onLikeClick"
       />
     </div>

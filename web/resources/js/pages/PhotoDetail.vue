@@ -13,7 +13,6 @@ const props = defineProps({
   },
 });
 
-store.dispatch('auth/loginUser');
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );

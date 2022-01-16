@@ -1,14 +1,11 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
 
-onMounted(() => {
-  store.dispatch('auth/loginUser');
-});
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
@@ -27,12 +24,12 @@ const logout = async () => {
     >
       Logout
     </button>
-    <RouterLink
+    <router-link
       v-else
       class="button button--link"
       to="/login"
     >
       Login / Register
-    </RouterLink>
+    </router-link>
   </footer>
 </template>

@@ -19846,9 +19846,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
-      store.dispatch('auth/loginUser');
-    });
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['auth/isLogin'];
     });
@@ -19884,7 +19881,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isLogin: isLogin,
       logout: logout,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
-      onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
       useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter
     };
@@ -19920,7 +19916,9 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
-    store.dispatch('auth/loginUser');
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      store.dispatch('auth/loginUser');
+    });
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
     });
@@ -19934,6 +19932,7 @@ __webpack_require__.r(__webpack_exports__);
       userName: userName,
       showForm: showForm,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_2__.useStore,
       PhotoForm: _PhotoForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -20070,7 +20069,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
-    store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['auth/isLogin'];
     });
@@ -20210,11 +20208,12 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
-    store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
     });
-    store.dispatch('photo/getPhotos', props.page);
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect)(function () {
+      store.dispatch('photo/getPhotos', props.page);
+    });
     var photos = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/photos'];
     });
@@ -20226,9 +20225,6 @@ __webpack_require__.r(__webpack_exports__);
     });
     var lastPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['photo/lastPage'];
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watchEffect)(function () {
-      store.dispatch('photo/getPhotos', props.page);
     });
     var __returned__ = {
       store: store,
@@ -20289,7 +20285,6 @@ __webpack_require__.r(__webpack_exports__);
     var user = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['user/user'];
     });
-    store.dispatch('auth/loginUser');
     var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/isLogin'];
     });
@@ -20703,13 +20698,13 @@ var _hoisted_1 = {
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Login / Register ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_RouterLink = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("RouterLink");
+  var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("footer", _hoisted_1, [$setup.isLogin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 0,
     "class": "button button--link",
     onClick: $setup.logout
-  }, " Logout ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_RouterLink, {
+  }, " Logout ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
     key: 1,
     "class": "button button--link",
     to: "/login"
@@ -21150,11 +21145,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PhotoItem"], {
       "class": "grid__item",
       key: photo.id,
-      item: photo,
+      photo: photo,
       onLike: $setup.onLikeClick
     }, null, 8
     /* PROPS */
-    , ["item"]);
+    , ["photo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])], 64

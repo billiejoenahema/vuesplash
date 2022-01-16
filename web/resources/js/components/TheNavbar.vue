@@ -1,11 +1,13 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import PhotoForm from './PhotoForm.vue';
 
 const store = useStore();
 
-store.dispatch('auth/loginUser');
+onMounted(() => {
+  store.dispatch('auth/loginUser');
+});
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
