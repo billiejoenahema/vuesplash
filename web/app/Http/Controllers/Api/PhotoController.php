@@ -24,7 +24,7 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        $query = Photo::with(['user']);
+        $query = Photo::with(['user'])->withCount(['likeUsers']);
         $photos = $query->orderBy(Photo::CREATED_AT, 'desc')->paginate();
 
         return PhotoResource::collection($photos);

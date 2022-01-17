@@ -20520,7 +20520,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     title: "Like photo",
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.onLikeClick, ["prevent"])
-  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.likeUsers.length), 1
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.like_users_count), 1
   /* TEXT */
   )], 10
   /* CLASS, PROPS */

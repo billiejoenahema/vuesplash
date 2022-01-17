@@ -21,7 +21,7 @@ class PhotoResource extends JsonResource
             'comments' => $this->comments,
             'likeUsers' => $this->likeUsers,
             'liked_by_user' => $this->likedByUser,
-            // 'photo_count' => $this->photoCount,
+            'like_users_count' => $this->like_users_count,
         ];
     }
 }
