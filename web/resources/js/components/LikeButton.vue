@@ -1,14 +1,22 @@
 <script setup>
-import { computed, defineProps } from 'vue';
+import { computed, defineProps, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { alertLogin } from '../functions/alertLogin';
 import photo from '../store/photo';
 
 const store = useStore();
-
+onMounted(() => {
+  console.log(props.photo);
+});
 const props = defineProps({
   photo: {
-    type: Object,
+    id: null,
+    like_users_count: null,
+    liked_by_user: false,
+    url: '',
+    comments: [],
+    likeUsers: [],
+    user: [],
     required: true,
   },
   isLogin: {
@@ -50,11 +58,11 @@ const onLikeClick = async () => {
 
 <template>
   <button
-    :class="{ 'button--liked': photo.liked_by_user }"
+    :class="{ 'button--liked': props.photo.liked_by_user }"
     title="Like photo"
     @click.prevent="onLikeClick"
   >
     <i class="icon ion-md-heart"></i
-    >{{ photo.like_users_count }}
+    >{{ props.photo.like_users_count }}
   </button>
 </template>

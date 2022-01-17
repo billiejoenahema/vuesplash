@@ -19559,7 +19559,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     photo: {
-      type: Object,
+      id: null,
+      like_users_count: null,
+      liked_by_user: false,
+      url: '',
+      comments: [],
+      likeUsers: [],
+      user: [],
       required: true
     },
     isLogin: {
@@ -19576,6 +19582,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
+      console.log(props.photo);
+    });
     var likeHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['like/hasErrors'];
     });
@@ -19637,6 +19646,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       likeHasErrors: likeHasErrors,
       onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
       alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin,
       photo: _store_photo__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -20516,11 +20526,11 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      'button--liked': $setup.photo.liked_by_user
+      'button--liked': $setup.props.photo.liked_by_user
     }),
     title: "Like photo",
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.onLikeClick, ["prevent"])
-  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.photo.like_users_count), 1
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.photo.like_users_count), 1
   /* TEXT */
   )], 10
   /* CLASS, PROPS */

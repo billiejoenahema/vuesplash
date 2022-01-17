@@ -39,6 +39,7 @@ class PhotoController extends Controller
     public function show(String $id)
     {
         $photo = Photo::with(['user', 'user.photos', 'user.likePhotos', 'comments', 'comments.user'])
+            ->withCount(['likeUsers'])
             ->findOrFail($id);
         return new PhotoResource($photo) ?? abort(404);
     }
