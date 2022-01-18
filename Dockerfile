@@ -16,3 +16,4 @@ RUN apt-get update \
     && mv composer.phar /usr/local/bin/composer
 
 WORKDIR /var/www/html/vuesplash
+CMD ["php","artisan","serve","--host","0.0.0.0", "--port","8081"]
