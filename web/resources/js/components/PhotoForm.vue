@@ -39,13 +39,14 @@ const uploadFile = async () => {
   const formData = new FormData();
   formData.set('photo', photo.value);
   await store.dispatch('photo/post', formData);
+  photo.value = store.getters['photo/photo'];
   emit('update:showForm', false);
-  resetPreview();
   router.push(`/photos/${photo.value.id}`);
   store.commit('toast/setContent', {
     content: '写真が投稿されました！',
     timeout: 6000,
   });
+  resetPreview();
   loading.value = false;
 };
 </script>
