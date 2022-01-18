@@ -1,12 +1,9 @@
 <script setup>
-import { computed, defineProps, onMounted } from 'vue';
+import { computed, defineProps } from 'vue';
 import { useStore } from 'vuex';
 import { alertLogin } from '../functions/alertLogin';
 
 const store = useStore();
-onMounted(() => {
-  console.log(props.photo);
-});
 const props = defineProps({
   photo: {
     id: null,

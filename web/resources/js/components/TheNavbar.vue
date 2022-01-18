@@ -15,6 +15,7 @@ const isLogin = computed(
 const userName = computed(
   () => store.getters['auth/userName']
 );
+const userId = computed(() => store.getters['auth/userId']);
 
 const showForm = ref(false);
 </script>
@@ -35,7 +36,9 @@ const showForm = ref(false);
         </button>
       </div>
       <span v-if="isLogin" class="navbar__item">
-        {{ userName }}
+        <router-link :to="`/users/${userId}`">
+          {{ userName }}
+        </router-link>
       </span>
       <div v-else class="navbar__item">
         <router-link

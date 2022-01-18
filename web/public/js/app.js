@@ -19580,9 +19580,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     expose();
     var props = __props;
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
-    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
-      console.log(props.photo);
-    });
     var likeHasErrors = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters['like/hasErrors'];
     });
@@ -19644,7 +19641,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       likeHasErrors: likeHasErrors,
       onLikeClick: onLikeClick,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
-      onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
       alertLogin: _functions_alertLogin__WEBPACK_IMPORTED_MODULE_2__.alertLogin
     };
@@ -19736,16 +19732,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return store.dispatch('photo/post', formData);
 
               case 5:
+                photo.value = store.getters['photo/photo'];
                 emit('update:showForm', false);
-                resetPreview();
                 _route__WEBPACK_IMPORTED_MODULE_2__["default"].push("/photos/".concat(photo.value.id));
                 store.commit('toast/setContent', {
                   content: '写真が投稿されました！',
                   timeout: 6000
                 });
+                resetPreview();
                 loading.value = false;
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -19932,11 +19929,15 @@ __webpack_require__.r(__webpack_exports__);
     var userName = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters['auth/userName'];
     });
+    var userId = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters['auth/userId'];
+    });
     var showForm = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var __returned__ = {
       store: store,
       isLogin: isLogin,
       userName: userName,
+      userId: userId,
       showForm: showForm,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
@@ -20828,9 +20829,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.showForm = !$setup.showForm;
     })
-  }, _hoisted_7)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.isLogin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userName), 1
-  /* TEXT */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, _hoisted_7)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.isLogin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/users/".concat($setup.userId)
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userName), 1
+      /* TEXT */
+      )];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["to"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "button button--link",
     to: "/login"
   }, {
@@ -21569,6 +21581,11 @@ var getters = {
     var _state$user$name, _state$user;
 
     return (_state$user$name = (_state$user = state.user) === null || _state$user === void 0 ? void 0 : _state$user.name) !== null && _state$user$name !== void 0 ? _state$user$name : '';
+  },
+  userId: function userId(state) {
+    var _state$user$id, _state$user2;
+
+    return (_state$user$id = (_state$user2 = state.user) === null || _state$user2 === void 0 ? void 0 : _state$user2.id) !== null && _state$user$id !== void 0 ? _state$user$id : '';
   },
   errors: function errors(state) {
     var _state$errors;

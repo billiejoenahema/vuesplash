@@ -17,6 +17,9 @@ const getters = {
   userName(state) {
     return state.user?.name ?? '';
   },
+  userId(state) {
+    return state.user?.id ?? '';
+  },
   errors(state) {
     return state?.errors ?? [];
   },
