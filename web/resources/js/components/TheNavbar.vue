@@ -26,6 +26,9 @@ const showForm = ref(false);
       Vuesplash
     </router-link>
     <div class="navbar__menu">
+      <div class="navbar__item">
+        <router-link to="/users"> User List </router-link>
+      </div>
       <div v-if="isLogin" class="navbar__item">
         <button
           class="button"
