@@ -32,12 +32,15 @@ const errors = computed(() => store.getters['auth/errors']);
 const login = async () => {
   await store.dispatch('auth/login', loginForm);
   if (!hasErrors.value) {
-    await router.push('/');
+    router.push('/');
   }
 };
 const register = async () => {
   await store.dispatch('auth/register', registerForm);
-  await await router.push('/');
+  await store.dispatch('auth/loginUser');
+  if (!hasErrors.value) {
+    router.push('/');
+  }
 };
 </script>
 
@@ -76,7 +79,7 @@ const register = async () => {
           v-model="loginForm.password"
         />
         <div class="form__button">
-          <div class="errors" v-show="errors.length">
+          <div class="errors" v-show="hasErrors">
             {{ errors[0] }}
           </div>
           <button
@@ -122,6 +125,9 @@ const register = async () => {
           v-model="registerForm.password_confirmation"
         />
         <div class="form__button">
+          <div class="errors" v-show="hasErrors">
+            {{ errors[0] }}
+          </div>
           <button
             type="submit"
             class="button button--inverse"
