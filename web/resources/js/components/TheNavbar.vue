@@ -3,20 +3,17 @@ import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import PhotoForm from './PhotoForm.vue';
 
-const store = useStore();
-
 onMounted(() => {
   store.dispatch('auth/loginUser');
 });
+const store = useStore();
 const isLogin = computed(
   () => store.getters['auth/isLogin']
 );
-
 const userName = computed(
   () => store.getters['auth/userName']
 );
 const userId = computed(() => store.getters['auth/userId']);
-
 const showForm = ref(false);
 </script>
 

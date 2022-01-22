@@ -1,14 +1,23 @@
 <script setup>
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
+import { useStore } from 'vuex';
 import LikeButton from './LikeButton.vue';
-const props = defineProps({
-  photo: Object,
-  isLogin: Boolean,
+
+defineProps({
+  photo: {
+    id: null,
+    url: '',
+    user: {},
+  },
   page: {
     type: Number,
     required: false,
   },
 });
+const store = useStore();
+const isLogin = computed(
+  () => store.getters['auth/isLogin']
+);
 </script>
 
 <template>
@@ -22,7 +31,7 @@ const props = defineProps({
     </figure>
     <router-link
       class="photo__overlay"
-      :to="`/photos/${props.photo.id}`"
+      :to="`/photos/${photo.id}`"
       :title="`View the photo by ${photo.user.name}`"
     >
       <div class="photo__controls">
@@ -35,13 +44,13 @@ const props = defineProps({
           class="photo__action"
           title="Download photo"
           @click.stop
-          :href="`/photos/${props.photo.id}/download`"
+          :href="`/photos/${photo.id}/download`"
         >
           <i class="icon ion-md-arrow-round-down"></i>
         </a>
       </div>
       <div class="photo__username">
-        {{ props.photo.user.name }}
+        {{ photo.user.name }}
       </div>
     </router-link>
   </div>

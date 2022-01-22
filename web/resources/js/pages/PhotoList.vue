@@ -13,10 +13,6 @@ const props = defineProps({
   },
 });
 
-const isLogin = computed(
-  () => store.getters['auth/isLogin']
-);
-
 watchEffect(() => {
   store.dispatch('photo/getPhotos', props.page);
 });
@@ -45,7 +41,6 @@ const lastPage = computed(
         v-for="photo in photos"
         :key="photo.id"
         :photo="photo"
-        :isLogin="isLogin"
         :page="page"
       />
     </div>
