@@ -1,8 +1,13 @@
 <script setup>
 import { defineProps } from 'vue';
-const props = defineProps({
-  user: Object,
-  isLogin: Boolean,
+import LikePhotosModal from './LikePhotosModal.vue';
+defineProps({
+  user: {
+    id: null,
+    likePhotos: [],
+    name: '',
+    photos: [],
+  },
   page: {
     type: Number,
     required: false,
@@ -11,14 +16,22 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="photo">
+  <div>
     <router-link
-      class="photo__overlay"
-      :to="`/users/${props.user.id}`"
+      :to="`/users/${user.id}`"
+      class="user-name"
     >
-      <div class="photo__username">
-        {{ props.user.name }}
-      </div>
+      {{ user.name }}
     </router-link>
+    <div>フォト投稿数: {{ user.photos.length }}</div>
+    <div>いいねしたフォト(モーダルで表示させる)</div>
+    <LikePhotosModal :likePhotos="user.likePhotos" />
   </div>
 </template>
+
+<style>
+.user-name {
+  font-weight: bold;
+  text-decoration: none;
+}
+</style>

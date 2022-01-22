@@ -35,7 +35,7 @@ const onLikeClick = ({ id, liked }) => {
 </script>
 <template>
   <div>User Page</div>
-  <div>{{ user.name }}</div>
+  <div class="user-name">{{ user.name }}</div>
   <div class="photo-list">
     <div class="grid">
       <PhotoItem

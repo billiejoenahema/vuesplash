@@ -10464,4 +10464,5 @@ img {
 
 .user-name {
   font-weight: bold;
+  text-decoration: none;
 }

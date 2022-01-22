@@ -13,15 +13,10 @@ const props = defineProps({
   },
 });
 
-const isLogin = computed(
-  () => store.getters['auth/isLogin']
-);
-
 watchEffect(() => {
   store.dispatch('user/getUsers', props.page);
 });
 const users = computed(() => store.getters['user/users']);
-
 const userCount = computed(
   () => store.getters['user/userCount']
 );
@@ -41,7 +36,6 @@ const lastPage = computed(
         v-for="user in users"
         :key="user.id"
         :user="user"
-        :isLogin="isLogin"
         :page="page"
       />
     </div>
