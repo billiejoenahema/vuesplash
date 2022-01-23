@@ -10048,6 +10048,10 @@ img {
   max-width: 100%;
 }
 
+ul {
+  list-style: none;
+}
+
 .button {
   border: 1px solid #dedede;
   border-radius: 0.25rem;

@@ -1,6 +1,6 @@
 <script setup>
-import { defineProps } from 'vue';
-import LikePhotosModal from './LikePhotosModal.vue';
+import { defineProps, ref } from 'vue';
+import LikePhotosModal from './LikePhotosModal';
 defineProps({
   user: {
     id: null,
@@ -13,25 +13,49 @@ defineProps({
     required: false,
   },
 });
+const showLikePhotosModal = ref(false);
+const onClickShowModal = () => {
+  console.log(showLikePhotosModal.value);
+  showLikePhotosModal.value = true;
+};
+const onClickCloseModal = () => {
+  showLikePhotosModal.value = false;
+};
 </script>
 
 <template>
-  <div>
-    <router-link
-      :to="`/users/${user.id}`"
-      class="user-name"
+  <ul>
+    <li>
+      <router-link
+        :to="`/users/${user.id}`"
+        class="user-name"
+      >
+        {{ user.name }}
+      </router-link>
+    </li>
+    <li>フォト投稿数: {{ user.photos.length }}</li>
+    <li
+      @click="onClickShowModal"
+      data-toggle="photosModal"
+      data-target="#photosModal"
     >
-      {{ user.name }}
-    </router-link>
-    <div>フォト投稿数: {{ user.photos.length }}</div>
-    <div>いいねしたフォト(モーダルで表示させる)</div>
-    <LikePhotosModal :likePhotos="user.likePhotos" />
-  </div>
+      <button>いいねしたフォト</button>
+    </li>
+  </ul>
+  <LikePhotosModal
+    :userName="user.name"
+    :likePhotos="user.likePhotos"
+    :closeModal="onClickCloseModal"
+    v-show="showLikePhotosModal"
+  />
 </template>
 
 <style>
 .user-name {
   font-weight: bold;
   text-decoration: none;
+}
+ul {
+  list-style: none;
 }
 </style>
