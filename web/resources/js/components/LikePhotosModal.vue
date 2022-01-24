@@ -9,37 +9,42 @@ defineProps({
 </script>
 
 <template>
-  <div
-    class="modal fade"
-    id="photosModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="photosModalTitle"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="photosModalTitle">
-            {{ userName }}さんがいいねしたフォト一覧
-          </h5>
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            @click="closeModal"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="grid">
-          <div class="photo-list">
-            <PhotoItem
-              class="grid__item"
-              v-for="photo in likePhotos"
-              :key="photo.id"
-              :photo="photo"
-            />
+  <div>
+    <div id="modal-overlay" @click="closeModal"></div>
+    <div
+      class="modal fade"
+      id="photosModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="photosModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="photosModalTitle">
+              {{ userName }}さんがいいねしたフォト一覧
+            </h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              @click="closeModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="photo-list">
+              <div class="grid">
+                <PhotoItem
+                  class="grid__item"
+                  v-for="photo in likePhotos"
+                  :key="photo.id"
+                  :photo="photo"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -48,6 +53,15 @@ defineProps({
 </template>
 
 <style>
+#modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1071;
+}
 .modal {
   position: fixed;
   top: 0;
@@ -55,7 +69,7 @@ defineProps({
   width: 100%;
   height: 100%;
   outline: 0;
-  z-index: 1072;
+  z-index: 1071;
 }
 .modal-open .modal {
   overflow-x: hidden;
@@ -73,6 +87,7 @@ defineProps({
 }
 .modal-dialog {
   max-width: 800px;
+  max-height: 800px;
   margin: 5rem auto;
   position: relative;
   width: auto;
@@ -89,12 +104,13 @@ defineProps({
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
+  z-index: 1072;
 }
 .modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1rem 1rem;
+  padding: 1rem;
   border-bottom: 1px px solid #e9ecef;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
@@ -104,7 +120,7 @@ defineProps({
   line-height: 1.5;
 }
 .modal-header .close {
-  padding: 1rem 1rem;
+  padding: 1rem;
   margin: -1rem -1rem -1rem auto;
 }
 button.close {
@@ -123,5 +139,8 @@ button.close {
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: 0.5;
+}
+.modal-body {
+  padding: 1rem;
 }
 </style>

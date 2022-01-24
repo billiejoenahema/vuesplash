@@ -24,30 +24,32 @@ const onClickCloseModal = () => {
 </script>
 
 <template>
-  <ul>
-    <li>
-      <router-link
-        :to="`/users/${user.id}`"
-        class="user-name"
+  <div class="user-item">
+    <ul>
+      <li>
+        <router-link
+          :to="`/users/${user.id}`"
+          class="user-name"
+        >
+          {{ user.name }}
+        </router-link>
+      </li>
+      <li>フォト投稿数: {{ user.photos.length }}</li>
+      <li
+        @click="onClickShowModal"
+        data-toggle="photosModal"
+        data-target="#photosModal"
       >
-        {{ user.name }}
-      </router-link>
-    </li>
-    <li>フォト投稿数: {{ user.photos.length }}</li>
-    <li
-      @click="onClickShowModal"
-      data-toggle="photosModal"
-      data-target="#photosModal"
-    >
-      <button>いいねしたフォト</button>
-    </li>
-  </ul>
-  <LikePhotosModal
-    :userName="user.name"
-    :likePhotos="user.likePhotos"
-    :closeModal="onClickCloseModal"
-    v-show="showLikePhotosModal"
-  />
+        <button>いいねしたフォト</button>
+      </li>
+    </ul>
+    <LikePhotosModal
+      v-show="showLikePhotosModal"
+      :userName="user.name"
+      :likePhotos="user.likePhotos"
+      :closeModal="onClickCloseModal"
+    />
+  </div>
 </template>
 
 <style>
@@ -57,5 +59,12 @@ const onClickCloseModal = () => {
 }
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.user-item {
+  border: 1px solid rgb(126, 126, 126);
+  border-radius: 4px;
+  padding: 1rem;
 }
 </style>
