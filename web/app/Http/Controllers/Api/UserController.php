@@ -16,7 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $query = User::with(['photos'])->withCount(['likePhotos']);
+        $query = User::withCount(['likePhotos'])
+            ->with(['photos' => function ($query) {
+                $query->withCount(['likeUsers']);
+            }]);
         $users = $query->orderBy(User::CREATED_AT, 'desc')->paginate();
 
         return UserResource::collection($users);
