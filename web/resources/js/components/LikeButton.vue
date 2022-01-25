@@ -47,6 +47,7 @@ const onLikeClick = async () => {
       store.dispatch('photo/getPhotos', props.page);
     } else {
       store.dispatch('photo/getPhoto', props.photo.id);
+      store.dispatch('user/getUsers');
     }
   }
 };

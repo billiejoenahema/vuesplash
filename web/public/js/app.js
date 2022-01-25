@@ -19619,6 +19619,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     store.dispatch('photo/getPhotos', props.page);
                   } else {
                     store.dispatch('photo/getPhoto', props.photo.id);
+                    store.dispatch('user/getUsers');
                   }
                 }
 
