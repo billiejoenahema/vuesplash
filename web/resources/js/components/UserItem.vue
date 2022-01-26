@@ -34,13 +34,17 @@ const onClickCloseModal = () => {
           {{ user.name }}
         </router-link>
       </li>
-      <li>フォト投稿数: {{ user.photos.length }}</li>
-      <li
-        @click="onClickShowModal"
-        data-toggle="photosModal"
-        data-target="#photosModal"
-      >
-        <button>いいねしたフォト</button>
+      <li>
+        フォト投稿数
+        <span class="badge badge-secondary">{{
+          user.photos.length
+        }}</span>
+      </li>
+      <li @click="onClickShowModal" class="clickable">
+        いいねしたフォト
+        <span class="badge badge-secondary">{{
+          user.likePhotos.length
+        }}</span>
       </li>
     </ul>
     <LikePhotosModal
@@ -62,9 +66,32 @@ ul {
   margin: 0;
   padding: 0;
 }
+.clickable {
+  cursor: pointer;
+}
 .user-item {
   border: 1px solid rgb(126, 126, 126);
   border-radius: 4px;
   padding: 1rem;
+  margin: 1rem 0 0 0;
+}
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 90%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+.badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
 }
 </style>
