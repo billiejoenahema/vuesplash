@@ -26,4 +26,18 @@ const isLastPage = computed(
       >next &raquo;</router-link
     >
   </div>
+  <div class="page-wrapper">
+    <div class="page">page: {{ currentPage }}</div>
+  </div>
 </template>
+
+<style>
+.page-wrapper {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+}
+.page {
+  width: 4rem;
+}
+</style>
