@@ -20121,7 +20121,6 @@ __webpack_require__.r(__webpack_exports__);
     var showLikePhotosModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
 
     var onClickShowModal = function onClickShowModal() {
-      console.log(showLikePhotosModal.value);
       showLikePhotosModal.value = true;
     };
 

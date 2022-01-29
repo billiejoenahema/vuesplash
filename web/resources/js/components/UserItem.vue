@@ -15,7 +15,6 @@ defineProps({
 });
 const showLikePhotosModal = ref(false);
 const onClickShowModal = () => {
-  console.log(showLikePhotosModal.value);
   showLikePhotosModal.value = true;
 };
 const onClickCloseModal = () => {
