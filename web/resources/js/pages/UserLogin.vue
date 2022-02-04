@@ -66,7 +66,7 @@ const register = async () => {
       <form class="form" @submit.prevent="login">
         <label for="login-email">Email</label>
         <input
-          type="text"
+          type="email"
           class="form__item"
           id="login-email"
           v-model="loginForm.email"
@@ -103,7 +103,7 @@ const register = async () => {
         />
         <label for="email">Email</label>
         <input
-          type="text"
+          type="email"
           class="form__item"
           id="email"
           v-model="registerForm.email"
