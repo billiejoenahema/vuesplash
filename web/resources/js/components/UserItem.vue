@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 import LikePhotosModal from './LikePhotosModal';
 defineProps({
   user: {

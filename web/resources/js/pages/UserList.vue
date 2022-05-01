@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, watchEffect } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import ThePagination from '../components/ThePagination';
 import UserItem from '../components/UserItem';

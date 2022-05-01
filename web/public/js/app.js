@@ -21089,7 +21089,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* STABLE */
 
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/users"
+    to: "/users",
+    title: "ユーザー一覧"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_5];
@@ -21672,7 +21673,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form",
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.login, ["prevent"])
   }, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
+    type: "email",
     "class": "form__item",
     id: "login-email",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -21714,7 +21715,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.registerForm.name]]), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
+    type: "email",
     "class": "form__item",
     id: "email",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {

@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue';
 import PhotoItem from './PhotoItem';
 defineProps({
   userName: String,
