@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 const store = useStore();
 const router = useRouter();
@@ -28,6 +28,7 @@ const logout = async () => {
       v-else
       class="button button--link"
       to="/login"
+      title="ログインページ"
     >
       Login / Register
     </router-link>

@@ -19,12 +19,18 @@ const showForm = ref(false);
 
 <template>
   <nav class="navbar">
-    <router-link class="navbar__brand" to="/">
+    <router-link
+      class="navbar__brand"
+      to="/"
+      title="ホーム"
+    >
       Vuesplash
     </router-link>
     <div class="navbar__menu">
       <div class="navbar__item">
-        <router-link to="/users"> User List </router-link>
+        <router-link to="/users" title="ユーザー一覧">
+          User List
+        </router-link>
       </div>
       <div v-if="isLogin" class="navbar__item">
         <button
@@ -44,6 +50,7 @@ const showForm = ref(false);
         <router-link
           class="button button--link"
           to="/login"
+          title="ログインページ"
         >
           Login / Register
         </router-link>
