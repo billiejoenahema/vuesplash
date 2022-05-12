@@ -59,7 +59,10 @@ const onLikeClick = async () => {
     title="Like photo"
     @click.prevent="onLikeClick"
   >
-    <i class="icon ion-md-heart"></i
-    >{{ photo.like_users_count ?? photo.likeUsers.length }}
+    <ion-icon
+      :name="
+        photo.liked_by_user ? 'heart' : 'heart-outline'
+      "
+    />{{ photo.like_users_count ?? photo.likeUsers.length }}
   </button>
 </template>
