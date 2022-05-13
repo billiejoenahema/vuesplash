@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@vue/compiler-sfc": "^3.2.21",
+        "simpledotcss": "^2.1.0",
         "vue-router": "^4.0.12",
         "vuex": "^4.0.2"
     }
