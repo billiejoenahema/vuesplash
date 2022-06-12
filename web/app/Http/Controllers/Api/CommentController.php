@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentStoreRequest;
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
     /**
-     * コメント投稿
-     * @param Comment $comment
+     * コメントを投稿する。
+     *
      * @param CommentStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function create(Comment $comment, CommentStoreRequest $request, Int $id)
+    public function create(CommentStoreRequest $request, Int $id)
     {
         $comment = Comment::create([
             'content' => $request['content'],
@@ -23,6 +24,6 @@ class CommentController extends Controller
             'photo_id' => $id,
         ]);
 
-        return response($comment);
+        return new CommentResource($comment);
     }
 }

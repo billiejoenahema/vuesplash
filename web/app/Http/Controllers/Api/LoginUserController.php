@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginUserController extends Controller
 {
     /**
-     * ログインユーザーの情報を返します。
+     * ログインユーザーの情報を返す。
      *
      * @return \Illuminate\Http\Response
      */

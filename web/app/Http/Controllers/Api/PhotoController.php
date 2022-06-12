@@ -25,7 +25,7 @@ class PhotoController extends Controller
     public function index()
     {
         $query = Photo::with(['user'])->withCount(['likeUsers']);
-        $photos = $query->orderBy(Photo::CREATED_AT, 'desc')->paginate();
+        $photos = $query->paginate();
 
         return PhotoResource::collection($photos);
     }
@@ -38,7 +38,13 @@ class PhotoController extends Controller
      */
     public function show(String $id)
     {
-        $photo = Photo::with(['user', 'user.photos', 'user.likePhotos', 'comments', 'comments.user'])
+        $photo = Photo::with([
+                'user',
+                'user.photos',
+                'user.likePhotos',
+                'comments',
+                'comments.user',
+            ])
             ->withCount(['likeUsers'])
             ->findOrFail($id);
         return new PhotoResource($photo) ?? abort(404);
@@ -47,6 +53,7 @@ class PhotoController extends Controller
     /**
      * フォトを投稿する
      *
+     * @param PhotoStoreRequest $request
      * @return Photo
      */
     public function create(PhotoStoreRequest $request)
@@ -60,7 +67,7 @@ class PhotoController extends Controller
             'filename' => $fileName,
         ]);
 
-        return response($photo, 201);
+        return new PhotoResource($photo);
     }
 
     /**
@@ -74,6 +81,6 @@ class PhotoController extends Controller
         if ($photo) {
             $photo->delete();
         }
-        return;
+        return response()->json(['message' => 'success']);
     }
 }
